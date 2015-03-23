@@ -1,4 +1,4 @@
-package com.genarc.services.data;
+package com.genarc.services;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
