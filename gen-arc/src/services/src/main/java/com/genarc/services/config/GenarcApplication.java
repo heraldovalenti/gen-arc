@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-import com.genarc.services.data.DataService;
+import com.genarc.services.DataService;
 
 public class GenarcApplication extends Application {
 
