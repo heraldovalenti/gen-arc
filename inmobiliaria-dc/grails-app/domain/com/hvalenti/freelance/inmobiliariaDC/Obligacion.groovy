@@ -5,7 +5,7 @@ class Obligacion {
 	String responsable
 	String concepto
 	String frecuencia
-	String detalle
+	String observacion
 	Double montoEstandar
 	Integer vencimientoEstandar
 	
@@ -14,15 +14,17 @@ class Obligacion {
 	static hasMany = [instancias: InstanciaObligacion]
 
     static constraints = {
+		contrato nullable: true
 		responsable inList: ["Inmobiliaria", "Locatario", "Locador"]
 		concepto inList: ["Alquiler","Comision","Impuesto"]
 		frecuencia inList: ["Mensual","Bimestral","Trimestral","Cuatrimestral","Anual"]
-		detalle blank: true, maxSize: 250
+		observacion nullable: true, maxSize: 250
 		vencimientoEstandar min: 1, max: 31
     }
 	
 	public String toString() {
-		String subString = (detalle && detalle.length() > 20) ? detalle.substring(0, 19) : detalle
-		return concepto + " - " + subString + "..."
+		def result = concepto
+		if (observacion) result + " - " + observacion
+		return result
 	}
 }

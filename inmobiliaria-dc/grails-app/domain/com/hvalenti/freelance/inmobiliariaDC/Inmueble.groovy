@@ -7,9 +7,9 @@ class Inmueble {
 	String tipo
 
     static constraints = {
+		tipo inList: ["Departamento","Casa","Oficina","Terreno"]
 		propietario nullable: true
 		domicilio nullable: true
-		tipo inList: ["Departamento","Casa","Oficina","Terreno"]
     }
 	
 	public String toString() {
