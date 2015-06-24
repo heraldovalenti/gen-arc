@@ -24,4 +24,10 @@ class Contrato {
 	public String toString() {
 		return "Contrato N" + id
 	}
+	
+	public void generarInstanciasObligacion() {
+		for(Obligacion o : obligaciones) {
+			o.generarInstancias()
+		}
+	}
 }

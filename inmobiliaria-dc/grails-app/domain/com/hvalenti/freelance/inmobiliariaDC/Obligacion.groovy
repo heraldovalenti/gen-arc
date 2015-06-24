@@ -12,6 +12,10 @@ class Obligacion {
 	static belongsTo = [contrato: Contrato]
 	
 	static hasMany = [instancias: InstanciaObligacion]
+	
+	static mappings = {
+		instancias cascade: "all-delete-orphan"
+	}
 
     static constraints = {
 		contrato nullable: true
@@ -26,5 +30,20 @@ class Obligacion {
 		def result = concepto
 		if (observacion) result + " - " + observacion
 		return result
+	}
+	
+	public void generarInstancias() {
+		
+	}
+	
+	public void ordenarInstancias(List<InstanciaObligacion> instanciasList) {
+		Collections.sort(instanciasList, new Comparator<InstanciaObligacion>() {
+			@Override 
+			int compare(InstanciaObligacion i1, InstanciaObligacion i2) {
+				Long diff = i1.vencimiento.getTime() - i2.vencimiento.getTime()
+				if (diff == 0) return 0
+				else return (diff > 0) ? 1 : -1
+			}
+		})
 	}
 }

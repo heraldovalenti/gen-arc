@@ -34,6 +34,7 @@ class RendicionLocatarioService {
 		Date fecha = new Date()
 		liquidacion.concepto = RENDICION_LOCATARIO
 		liquidacion.fecha = fecha
+		liquidacion.total = 0
 		for (def detalle : liquidacion.detalles) {
 			def obligacion = detalle.obligacion
 			obligacion.liquidacion = detalle

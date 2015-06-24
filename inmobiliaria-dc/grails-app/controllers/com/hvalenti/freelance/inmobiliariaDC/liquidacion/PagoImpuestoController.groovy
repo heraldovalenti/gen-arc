@@ -26,10 +26,10 @@ class PagoImpuestoController {
 		try {
 			for (def o : obligaciones) {
 				if ("on".equals(params.get("check-" + o.id))) {
+					Double monto = Double.parseDouble(params.get("monto-" + o.id))
 					liquidacion.addToDetalles( new DetalleLiquidacion(
 						observacion: params.get("observacion-" + o.id),
-						monto: params.get("monto-" + o.id),
-						obligacion: o) )
+						monto: monto, obligacion: o) )
 				}
 			}
 

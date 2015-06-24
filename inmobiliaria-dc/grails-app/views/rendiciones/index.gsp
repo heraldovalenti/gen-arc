@@ -12,7 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-<%--				<li><g:link class="create" action="makeLiquidacion">Generar liquidacion</g:link></li>--%>
+				<li><g:link class="list" controller="contrato" action="show" id="${ id }">Ver contrato</g:link></li>
 			</ul>
 		</div>
 		<div id="list-instanciaObligacion" class="content scaffold-list" role="main">
@@ -44,8 +44,15 @@
 								<td><g:link controller="instanciaObligacion" action="show"
 									id="${instanciaObligacionInstance.id}">${ instanciaObligacionInstance }</g:link></td>
 								<td><g:formatDate date="${instanciaObligacionInstance.vencimiento}" format="dd/MM/yyyy" /></td>
-								<td>$ <g:field type="number" name="monto-${ instanciaObligacionInstance.id }" step="0.01"
-									value="${fieldValue(bean: instanciaObligacionInstance, field: "monto")}" /></td>
+								<td>$ 
+									<%--
+									<g:field type="number" name="monto-${ instanciaObligacionInstance.id }" step="0.01"
+										value="${fieldValue(bean: instanciaObligacionInstance, field: "monto")}" />
+									--%>
+									<g:field type="number" name="monto-${ instanciaObligacionInstance.id }" step="0.01"
+										value="${ instanciaObligacionInstance.monto }" />
+										
+								</td>
 								<td><g:textField name="observacion-${ instanciaObligacionInstance.id }" /></td>
 							</tr>
 						</g:each>
