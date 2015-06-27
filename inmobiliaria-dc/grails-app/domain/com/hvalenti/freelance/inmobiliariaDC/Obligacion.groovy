@@ -1,5 +1,7 @@
 package com.hvalenti.freelance.inmobiliariaDC
 
+import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
+
 class Obligacion {
 	
 	String responsable
@@ -32,18 +34,54 @@ class Obligacion {
 		return result
 	}
 	
-	public void generarInstancias() {
-		
+	def generarInstancias() {
+		if (!instancias) instancias = new HashSet()
+		List<InstanciaObligacion> instanciasList = getOrderedInstancias()
+		if (instanciasList.isEmpty()) {
+			generarInstanciaObligacion()
+		} else {
+			InstanciaObligacion lastInstancia = instanciasList.first()
+			Date now = new Date()
+			int monthDifference = DateUtil.monthDifference(lastInstancia.vencimiento, now)
+			switch(this.frecuencia) {
+				case "Mensual":
+				if (monthDifference >= 1) generarInstanciaObligacion(now)
+				break
+				
+				case "Bimestral":
+				if (monthDifference >= 2) generarInstanciaObligacion(now)
+				break
+				
+				case "Trimestral":
+				if (monthDifference >= 3) generarInstanciaObligacion(now)
+				break
+				
+				case "Cuatrimestral":
+				if (monthDifference >= 4) generarInstanciaObligacion(now)
+				break
+				
+				case "Anual":
+				if (monthDifference >= 12) generarInstanciaObligacion(now)
+				break
+			}
+		}
 	}
 	
-	public void ordenarInstancias(List<InstanciaObligacion> instanciasList) {
-		Collections.sort(instanciasList, new Comparator<InstanciaObligacion>() {
-			@Override 
-			int compare(InstanciaObligacion i1, InstanciaObligacion i2) {
-				Long diff = i1.vencimiento.getTime() - i2.vencimiento.getTime()
-				if (diff == 0) return 0
-				else return (diff > 0) ? 1 : -1
-			}
-		})
+	public void generarInstanciaObligacion(Date now) {
+		if (!instancias) instancias = new HashSet()
+		int dayOfMonth = Math.min(DateUtil.maxDayOfMonth(now), this.vencimientoEstandar)
+		Date vencimiento = DateUtil.dateFromNumbers(DateUtil.getYear(now), DateUtil.getMonthOfYear(now), dayOfMonth )
+		InstanciaObligacion nuevaInstancia = new InstanciaObligacion(
+			responsable: this.responsable,
+			monto: this.montoEstandar,
+			vencimiento: vencimiento,
+			obligacion: this)
+		this.instancias.add(nuevaInstancia)
+	}
+	
+	private List<InstanciaObligacion> getOrderedInstancias() {
+		List<InstanciaObligacion> instanciasList = new ArrayList<>(instancias)
+		instanciasList.sort { a, b -> a.vencimiento.getTime() - b.vencimiento.getTime() }
+		return instanciasList
 	}
 }
