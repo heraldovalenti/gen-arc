@@ -25,7 +25,10 @@ class Contrato {
 		return "Contrato N" + id
 	}
 	
-	public void generarInstanciasObligacion() {
+	public void generarInstanciasObligacion(Date now) {
+		if ( !now 
+			|| (inicio && inicio.after(now) && !inicio.equals(now))
+			|| (fin && fin.before(now) && !fin.equals(now)) ) return
 		for(Obligacion o : obligaciones) {
 			o.generarInstancias()
 		}
