@@ -10,6 +10,11 @@ class DateUtil {
 		return dt.dayOfMonth().getMaximumValue()
 	}
 	
+	public static Date addDays(Date date, int days) {
+		DateTime dt = new DateTime(date)
+		return dt.plusDays(days).toDate()
+	}
+	
 	public static Date addMonths(Date date, int months) {
 		DateTime dt = new DateTime(date)
 		return dt.plusMonths(months).toDate()

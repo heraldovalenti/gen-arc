@@ -100,14 +100,31 @@
 		</div>
 		<div id="page-body" role="main">
 			<h1>Accesos rápidos</h1>
+			
 			<div id="controller-list" role="navigation">
 				<h2>Contratos con obligaciones a vencer</h2>
 				<ul>
-					<li><g:link controller="contrato" action="show" id="1">Contrato N1</g:link></li>
-					<li><g:link controller="contrato" action="show" id="2">Contrato N2</g:link></li>
-					<li><g:link controller="contrato" action="show" id="3">Contrato N3</g:link></li>
+				<g:if test="${ proximos.isEmpty() }">
+					<li>No hay obligaciones proximas a vencer</li>		
+				</g:if>
+				<g:else>
+					<g:each in="${ proximos }" var="contrato">
+						<li><g:link controller="contrato" action="show" id="${ contrato.id }">Contrato N${ contrato.id }</g:link></li>
+					</g:each>
+				</g:else>
 				</ul>
 			</div>
+			
+			<g:if test="${ !vencidos.isEmpty() }">
+				<div id="controller-list" role="navigation">
+					<h2>Contratos con obligaciones vencidas</h2>
+					<ul>		
+						<g:each in="${ vencidos }" var="contrato">
+							<li><g:link controller="contrato" action="show" id="${ contrato.id }">Contrato N${ contrato.id }</g:link></li>
+						</g:each>
+					</ul>
+				</div>
+			</g:if>
 		</div>
 	</body>
 </html>
