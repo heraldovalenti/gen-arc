@@ -8,8 +8,8 @@ class ObligacionesUpdaterJob {
 	ObligacionesService obligacionesService
 		
 	static triggers = { 
-		//simple name: "obligacionesNuevas", startDelay: 10000L, repeatCount: 2, repeatInterval: 10000L
-		cron name: "obligacionesDiarias", startDelay: 60000L, cronExpression: "0 0 0 * * ?"
+		simple name: "obligaciones", startDelay: 10000L, repeatInterval: 60000L //repeatCount: 2, 
+		//cron name: "obligacionesDiarias", startDelay: 60000L, cronExpression: "0 0 0 * * ?"
 	}
 
 	def execute() {

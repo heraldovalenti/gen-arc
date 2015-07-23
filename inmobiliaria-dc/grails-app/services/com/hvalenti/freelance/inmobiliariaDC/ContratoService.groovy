@@ -24,15 +24,16 @@ class ContratoService {
 		
 		contratoInstance.addToObligaciones(alquilerObligacionInstance)
 		contratoInstance.addToObligaciones(comisionObligacionInstance)
+		contratoInstance.generarInstanciasObligacion(new Date())
 		contratoInstance.save()
 	}
 		
 	def contratosConObligacionesProximas() {
-		Date now = new Date()
-		Date tenDaysAgo = DateUtil.addDays(now, -10)
+		Date from = new Date()
+		Date to = DateUtil.addDays(from, 10)
 		List<InstanciaObligacion> instanciasList = InstanciaObligacion.findAll(
-			"from InstanciaObligacion as I where I.vencimiento between :from and :to and I.liquidacion is null", 
-			[from: tenDaysAgo, to: now])
+			"from InstanciaObligacion as I where I.vencimiento between :from and :to and I.liquidacion is null",
+			[from: from, to: to])
 		Set<Contrato> contratosList = new HashSet<>()
 		for (InstanciaObligacion i : instanciasList) {
 			Contrato c = i.obligacion.contrato
