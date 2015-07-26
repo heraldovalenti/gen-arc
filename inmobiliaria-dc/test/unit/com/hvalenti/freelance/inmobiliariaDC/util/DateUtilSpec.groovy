@@ -133,4 +133,16 @@ class DateUtilSpec extends Specification {
 		then:
 		dt.toDate().equals(date)
 	}
+	
+	void "format date as argentinan date"() {
+		given:
+		String dateString
+		Date cumple = new DateTime("1989-08-22").toDate()
+		
+		when:
+		dateString = DateUtil.formatDate(cumple)
+		
+		then:
+		"22/08/1989".equals(dateString)
+	}
 }

@@ -1,9 +1,14 @@
 package com.hvalenti.freelance.inmobiliariaDC.util
 
 import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import org.joda.time.Months
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.DateTimeFormatter
 
 class DateUtil {
+	
+	public static final DEFAULT_FORMAT = "dd/MM/yyyy"
 	
 	public static int maxDayOfMonth(Date date) {
 		DateTime dt = new DateTime(date)
@@ -50,6 +55,16 @@ class DateUtil {
 		DateTime dt2 = new DateTime(to)
 		Months monthsBetween = Months.monthsBetween(dt1, dt2)
 		return monthsBetween.getMonths()
+	}
+	
+	public static String formatDate(Date date) {
+		return formatDate(DEFAULT_FORMAT, date)
+	}
+	
+	public static String formatDate(String pattern, Date date) {
+		DateTime dt = new DateTime(date)
+		DateTimeFormatter fmt = DateTimeFormat.forPattern(pattern);
+		return dt.toString(fmt);
 	}
 
 }
