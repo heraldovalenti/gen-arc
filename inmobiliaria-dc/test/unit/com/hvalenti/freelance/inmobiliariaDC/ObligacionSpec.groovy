@@ -20,7 +20,7 @@ class ObligacionSpec extends Specification {
 	
 	def "generar instancias genera la primer instancia"() {
 		given:
-		Obligacion o = new Obligacion(vencimientoEstandar: 12)
+		Obligacion o = new Obligacion(diaVencimiento: 12)
 		
 		when:
 		o.generarInstancias()
@@ -49,7 +49,7 @@ class ObligacionSpec extends Specification {
 	def "generar instancias no debe generar ninguna instancia para mensual"() {
 		given:
 		Date now = new Date()
-		Obligacion o = new Obligacion(vencimientoEstandar: 1, frecuencia: "Mensual", )
+		Obligacion o = new Obligacion(diaVencimiento: 1, frecuencia: "Mensual", )
 		agregarInstancia(o, now)
 		
 		when:
@@ -62,7 +62,7 @@ class ObligacionSpec extends Specification {
 	def "generar instancias debe generar una instancia para mensual"() {
 		given:
 		Date now = new Date()
-		Obligacion o = new Obligacion(vencimientoEstandar: 1, frecuencia: "Mensual", )
+		Obligacion o = new Obligacion(diaVencimiento: 1, frecuencia: "Mensual", )
 		agregarInstancia(o, DateUtil.addMonths(now, -1))
 		
 		when:
@@ -75,7 +75,7 @@ class ObligacionSpec extends Specification {
 	def "generar instancias debe generar una instancia para bimestral"() {
 		given:
 		Date now = new Date()
-		Obligacion o = new Obligacion(vencimientoEstandar: 1, frecuencia: "Bimestral", )
+		Obligacion o = new Obligacion(diaVencimiento: 1, frecuencia: "Bimestral", )
 		agregarInstancia(o, DateUtil.addMonths(now, -2))
 		
 		when:
@@ -88,7 +88,7 @@ class ObligacionSpec extends Specification {
 	def "generar instancias no debe generar ninguna instancia para bimestral"() {
 		given:
 		Date now = new Date()
-		Obligacion o = new Obligacion(vencimientoEstandar: 1, frecuencia: "Bimestral", )
+		Obligacion o = new Obligacion(diaVencimiento: 1, frecuencia: "Bimestral", )
 		agregarInstancia(o, DateUtil.addMonths(now, -1))
 		
 		when:
@@ -101,7 +101,7 @@ class ObligacionSpec extends Specification {
 	def "generar instancias no debe generar ninguna instancia para trimestral"() {
 		given:
 		Date now = new Date()
-		Obligacion o = new Obligacion(vencimientoEstandar: 1, frecuencia: "Trimestral", )
+		Obligacion o = new Obligacion(diaVencimiento: 1, frecuencia: "Trimestral", )
 		agregarInstancia(o, DateUtil.addMonths(now, -2))
 		
 		when:
@@ -114,7 +114,7 @@ class ObligacionSpec extends Specification {
 	def "generar instancias debe generar una instancia para trimestral"() {
 		given:
 		Date now = new Date()
-		Obligacion o = new Obligacion(vencimientoEstandar: 1, frecuencia: "Trimestral", )
+		Obligacion o = new Obligacion(diaVencimiento: 1, frecuencia: "Trimestral", )
 		agregarInstancia(o, DateUtil.addMonths(now, -3))
 		
 		when:
@@ -127,7 +127,7 @@ class ObligacionSpec extends Specification {
 	def "generar instancias debe generar una instancia para anual"() {
 		given:
 		Date now = new Date()
-		Obligacion o = new Obligacion(vencimientoEstandar: 1, frecuencia: "Anual", )
+		Obligacion o = new Obligacion(diaVencimiento: 1, frecuencia: "Anual", )
 		agregarInstancia(o, DateUtil.addMonths(now, -12))
 		
 		when:
@@ -140,7 +140,7 @@ class ObligacionSpec extends Specification {
 	def "generar instancias no debe generar ninguna instancia para anual"() {
 		given:
 		Date now = new Date()
-		Obligacion o = new Obligacion(vencimientoEstandar: 1, frecuencia: "Anual", )
+		Obligacion o = new Obligacion(diaVencimiento: 1, frecuencia: "Anual", )
 		agregarInstancia(o, DateUtil.addMonths(now, -11))
 		
 		when:
@@ -153,7 +153,7 @@ class ObligacionSpec extends Specification {
 	def "generar instancia obligacion genera con vencimiento estandar"(now, vencimiento, expected) {
 		given:
 		Date d = DateUtil.dateFromString(now)
-		Obligacion o = new Obligacion(vencimientoEstandar: vencimiento)
+		Obligacion o = new Obligacion(diaVencimiento: vencimiento)
 		
 		when:
 		o.generarInstanciaObligacion(d)

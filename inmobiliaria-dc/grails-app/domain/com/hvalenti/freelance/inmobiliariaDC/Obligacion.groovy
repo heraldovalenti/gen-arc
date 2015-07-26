@@ -5,11 +5,9 @@ import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 class Obligacion {
 	
 	String responsable
-	String concepto
 	String frecuencia
-	String observacion
-	Double montoEstandar
-	Integer vencimientoEstandar
+	Double monto
+	Integer diaVencimiento
 	
 	static belongsTo = [contrato: Contrato]
 	
@@ -22,19 +20,15 @@ class Obligacion {
     static constraints = {
 		contrato nullable: true
 		responsable inList: ["Inmobiliaria", "Locatario", "Locador"]
-		concepto inList: ["Alquiler","Comision","Impuesto"]
 		frecuencia inList: ["Mensual","Bimestral","Trimestral","Cuatrimestral","Anual"]
-		observacion nullable: true, maxSize: 250
-		vencimientoEstandar min: 1, max: 31
+		diaVencimiento min: 1, max: 31
     }
 	
 	public String toString() {
-		def result = concepto
-		if (observacion) result + " - " + observacion
-		return result
+		return "Obligacion N" + id
 	}
 	
-	def generarInstancias() {
+	public void generarInstancias() {
 		if (!instancias) instancias = new HashSet()
 		List<Vencimiento> instanciasList = getOrderedInstancias()
 		if (instanciasList.isEmpty()) {
@@ -69,11 +63,11 @@ class Obligacion {
 	
 	public void generarInstanciaObligacion(Date now) {
 		if (!instancias) instancias = new HashSet()
-		int dayOfMonth = Math.min(DateUtil.maxDayOfMonth(now), this.vencimientoEstandar)
+		int dayOfMonth = Math.min(DateUtil.maxDayOfMonth(now), this.diaVencimiento)
 		Date vencimiento = DateUtil.dateFromNumbers(DateUtil.getYear(now), DateUtil.getMonthOfYear(now), dayOfMonth )
 		Vencimiento nuevaInstancia = new Vencimiento(
 			responsable: this.responsable,
-			monto: this.montoEstandar,
+			monto: this.monto,
 			vencimiento: vencimiento,
 			obligacion: this)
 		this.instancias.add(nuevaInstancia)

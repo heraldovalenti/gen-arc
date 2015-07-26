@@ -15,12 +15,12 @@ class ContratoService {
 		alquilerObligacionInstance.responsable = "Locatario"
 		alquilerObligacionInstance.concepto = "Alquiler"
 		alquilerObligacionInstance.frecuencia = "Mensual"
-		alquilerObligacionInstance.vencimientoEstandar = 1
+		alquilerObligacionInstance.diaVencimiento = 1
 		
 		comisionObligacionInstance.responsable = "Locador"
 		comisionObligacionInstance.concepto = "Comision"
 		comisionObligacionInstance.frecuencia = "Mensual"
-		comisionObligacionInstance.vencimientoEstandar = 1
+		comisionObligacionInstance.diaVencimiento = 1
 		
 		contratoInstance.addToObligaciones(alquilerObligacionInstance)
 		contratoInstance.addToObligaciones(comisionObligacionInstance)

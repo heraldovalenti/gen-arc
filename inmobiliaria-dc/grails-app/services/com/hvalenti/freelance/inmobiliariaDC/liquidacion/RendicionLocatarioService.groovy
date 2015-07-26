@@ -58,12 +58,12 @@ class RendicionLocatarioService {
 		Vencimiento rendicionAlquilerLocador = new Vencimiento(
 			responsable: "Inmobiliaria", 
 			monto: instanciaObligacionAlquiler.monto, 
-			vencimiento: generarVencimiento(instanciaObligacionAlquiler.vencimiento, obligacionAlquiler.vencimientoEstandar),
+			vencimiento: generarVencimiento(instanciaObligacionAlquiler.vencimiento, obligacionAlquiler.diaVencimiento),
 			obligacion: obligacionAlquiler)
 		Vencimiento comisionAlquiler = new Vencimiento(
 			responsable: "Inmobiliaria",
-			monto: -obligacionComision.montoEstandar,
-			vencimiento: generarVencimiento(instanciaObligacionAlquiler.vencimiento, obligacionComision.vencimientoEstandar),
+			monto: -obligacionComision.monto,
+			vencimiento: generarVencimiento(instanciaObligacionAlquiler.vencimiento, obligacionComision.diaVencimiento),
 			obligacion: obligacionComision)
 		rendicionAlquilerLocador.save()
 		comisionAlquiler.save()
