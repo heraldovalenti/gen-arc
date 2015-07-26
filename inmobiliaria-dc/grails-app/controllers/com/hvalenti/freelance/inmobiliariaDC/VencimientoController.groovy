@@ -1,7 +1,7 @@
 package com.hvalenti.freelance.inmobiliariaDC
 
-class InstanciaObligacionController {
+class VencimientoController {
 	
-	static scaffold = InstanciaObligacion
+	static scaffold = Vencimiento
 
 }

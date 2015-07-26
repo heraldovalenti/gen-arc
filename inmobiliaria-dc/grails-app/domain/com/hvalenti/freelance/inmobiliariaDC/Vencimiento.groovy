@@ -2,7 +2,7 @@ package com.hvalenti.freelance.inmobiliariaDC
 
 import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 
-class InstanciaObligacion {
+class Vencimiento {
 	
 	Date vencimiento
 	String responsable
