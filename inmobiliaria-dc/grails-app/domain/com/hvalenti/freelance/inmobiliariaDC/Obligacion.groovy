@@ -18,7 +18,6 @@ class Obligacion {
 	}
 
     static constraints = {
-		contrato nullable: true
 		responsable inList: ["Inmobiliaria", "Locatario", "Locador"]
 		frecuencia inList: ["Mensual","Bimestral","Trimestral","Cuatrimestral","Anual"]
 		diaVencimiento min: 1, max: 31
