@@ -1,6 +1,6 @@
 package com.hvalenti.freelance.inmobiliariaDC.liquidacion
 
-import com.hvalenti.freelance.inmobiliariaDC.InstanciaObligacion
+import com.hvalenti.freelance.inmobiliariaDC.Vencimiento
 import com.hvalenti.freelance.inmobiliariaDC.Liquidacion
 
 class LiquidacionManagerController {

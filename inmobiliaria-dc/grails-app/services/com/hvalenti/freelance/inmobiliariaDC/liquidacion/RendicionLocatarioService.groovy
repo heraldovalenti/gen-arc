@@ -7,7 +7,7 @@ import grails.validation.ValidationException
 import javax.transaction.Transactional
 
 import com.hvalenti.freelance.inmobiliariaDC.Contrato
-import com.hvalenti.freelance.inmobiliariaDC.InstanciaObligacion
+import com.hvalenti.freelance.inmobiliariaDC.Vencimiento
 import com.hvalenti.freelance.inmobiliariaDC.Liquidacion
 import com.hvalenti.freelance.inmobiliariaDC.Obligacion
 
@@ -24,7 +24,7 @@ class RendicionLocatarioService {
 	@Transactional
 	def listObligaciones(Long id) {
 		def contrato = Contrato.get(id)
-		def result = InstanciaObligacion.findAll(QUERY_RENDICION_LOCATARIO, [contrato: contrato])
+		def result = Vencimiento.findAll(QUERY_RENDICION_LOCATARIO, [contrato: contrato])
 		result = result.collect { it[0] }
 		return result
 	}
@@ -50,17 +50,17 @@ class RendicionLocatarioService {
 		return liquidacion
 	}
 	
-	private void generarObligacionesAlquiler(InstanciaObligacion instanciaObligacionAlquiler) {
+	private void generarObligacionesAlquiler(Vencimiento instanciaObligacionAlquiler) {
 		Obligacion obligacionAlquiler = instanciaObligacionAlquiler.obligacion
 		Contrato contrato = Contrato.get(obligacionAlquiler.contrato.id)
 		Obligacion obligacionComision = getObligacionComision(contrato)
 		
-		InstanciaObligacion rendicionAlquilerLocador = new InstanciaObligacion(
+		Vencimiento rendicionAlquilerLocador = new Vencimiento(
 			responsable: "Inmobiliaria", 
 			monto: instanciaObligacionAlquiler.monto, 
 			vencimiento: generarVencimiento(instanciaObligacionAlquiler.vencimiento, obligacionAlquiler.vencimientoEstandar),
 			obligacion: obligacionAlquiler)
-		InstanciaObligacion comisionAlquiler = new InstanciaObligacion(
+		Vencimiento comisionAlquiler = new Vencimiento(
 			responsable: "Inmobiliaria",
 			monto: -obligacionComision.montoEstandar,
 			vencimiento: generarVencimiento(instanciaObligacionAlquiler.vencimiento, obligacionComision.vencimientoEstandar),

@@ -1,4 +1,4 @@
-<%@ page import="com.hvalenti.freelance.inmobiliariaDC.InstanciaObligacion" %>
+<%@ page import="com.hvalenti.freelance.inmobiliariaDC.Vencimiento" %>
 
 <div class="fieldcontain ${hasErrors(bean: alquilerObligacionInstance, field: 'montoEstandar', 'error')} required">
 	<label for="montoAlquiler">

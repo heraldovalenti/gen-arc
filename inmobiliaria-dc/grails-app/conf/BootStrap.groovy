@@ -1,6 +1,6 @@
 import com.hvalenti.freelance.inmobiliariaDC.Contrato
 import com.hvalenti.freelance.inmobiliariaDC.Inmueble
-import com.hvalenti.freelance.inmobiliariaDC.InstanciaObligacion
+import com.hvalenti.freelance.inmobiliariaDC.Vencimiento
 import com.hvalenti.freelance.inmobiliariaDC.Obligacion
 
 class BootStrap {

@@ -1,5 +1,5 @@
 
-<%@ page import="com.hvalenti.freelance.inmobiliariaDC.InstanciaObligacion" %>
+<%@ page import="com.hvalenti.freelance.inmobiliariaDC.Vencimiento" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -41,7 +41,7 @@
 						<g:each in="${instanceList}" status="i" var="instanciaObligacionInstance">
 							<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 								<td><g:checkBox name="check-${ instanciaObligacionInstance.id }" onclick="totalizar(this)"/></td>
-								<td><g:link controller="instanciaObligacion" action="show"
+								<td><g:link controller="vencimiento" action="show"
 									id="${instanciaObligacionInstance.id}">${ instanciaObligacionInstance }</g:link></td>
 								<td><g:formatDate date="${instanciaObligacionInstance.vencimiento}" format="dd/MM/yyyy" /></td>
 								<td>$ 

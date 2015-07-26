@@ -1,6 +1,6 @@
 
 <%@ page import="com.hvalenti.freelance.inmobiliariaDC.Liquidacion" %>
-<%@ page import="com.hvalenti.freelance.inmobiliariaDC.InstanciaObligacion" %>
+<%@ page import="com.hvalenti.freelance.inmobiliariaDC.Vencimiento" %>
 <!DOCTYPE html>
 <html>
 	<head>

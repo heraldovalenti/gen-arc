@@ -90,7 +90,7 @@
 				<li><g:link controller="persona">Personas</g:link></li>
 				<li><g:link controller="domicilio">Domicilios</g:link></li>
 				<li><g:link controller="obligacion">Obligaciones</g:link></li>
-				<li><g:link controller="instanciaObligacion">Vencimientos</g:link></li>
+				<li><g:link controller="vencimiento">Vencimientos</g:link></li>
 				<li><g:link controller="liquidacion">Liquidaciones</g:link></li>
 			</ul>
 			<h1>Acceso</h1>

@@ -13,7 +13,7 @@ class Obligacion {
 	
 	static belongsTo = [contrato: Contrato]
 	
-	static hasMany = [instancias: InstanciaObligacion]
+	static hasMany = [instancias: Vencimiento]
 	
 	static mappings = {
 		instancias cascade: "all-delete-orphan"
@@ -36,11 +36,11 @@ class Obligacion {
 	
 	def generarInstancias() {
 		if (!instancias) instancias = new HashSet()
-		List<InstanciaObligacion> instanciasList = getOrderedInstancias()
+		List<Vencimiento> instanciasList = getOrderedInstancias()
 		if (instanciasList.isEmpty()) {
 			generarInstanciaObligacion()
 		} else {
-			InstanciaObligacion lastInstancia = instanciasList.first()
+			Vencimiento lastInstancia = instanciasList.first()
 			Date now = new Date()
 			int monthDifference = DateUtil.monthDifference(lastInstancia.vencimiento, now)
 			switch(this.frecuencia) {
@@ -71,7 +71,7 @@ class Obligacion {
 		if (!instancias) instancias = new HashSet()
 		int dayOfMonth = Math.min(DateUtil.maxDayOfMonth(now), this.vencimientoEstandar)
 		Date vencimiento = DateUtil.dateFromNumbers(DateUtil.getYear(now), DateUtil.getMonthOfYear(now), dayOfMonth )
-		InstanciaObligacion nuevaInstancia = new InstanciaObligacion(
+		Vencimiento nuevaInstancia = new Vencimiento(
 			responsable: this.responsable,
 			monto: this.montoEstandar,
 			vencimiento: vencimiento,
@@ -79,8 +79,8 @@ class Obligacion {
 		this.instancias.add(nuevaInstancia)
 	}
 	
-	private List<InstanciaObligacion> getOrderedInstancias() {
-		List<InstanciaObligacion> instanciasList = new ArrayList<>(instancias)
+	private List<Vencimiento> getOrderedInstancias() {
+		List<Vencimiento> instanciasList = new ArrayList<>(instancias)
 		instanciasList.sort { a, b -> a.vencimiento.getTime() - b.vencimiento.getTime() }
 		return instanciasList
 	}

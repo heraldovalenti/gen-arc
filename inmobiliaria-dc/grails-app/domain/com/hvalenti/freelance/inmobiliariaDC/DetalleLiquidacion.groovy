@@ -4,7 +4,7 @@ class DetalleLiquidacion {
 	
 	Double monto
 	String observacion
-	InstanciaObligacion obligacion
+	Vencimiento obligacion
 	
 	static belongsTo = [liquidacion: Liquidacion]
 

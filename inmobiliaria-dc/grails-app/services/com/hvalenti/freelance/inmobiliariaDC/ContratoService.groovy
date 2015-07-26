@@ -31,11 +31,11 @@ class ContratoService {
 	def contratosConObligacionesProximas() {
 		Date from = new Date()
 		Date to = DateUtil.addDays(from, 10)
-		List<InstanciaObligacion> instanciasList = InstanciaObligacion.findAll(
+		List<Vencimiento> instanciasList = Vencimiento.findAll(
 			"from InstanciaObligacion as I where I.vencimiento between :from and :to and I.liquidacion is null",
 			[from: from, to: to])
 		Set<Contrato> contratosList = new HashSet<>()
-		for (InstanciaObligacion i : instanciasList) {
+		for (Vencimiento i : instanciasList) {
 			Contrato c = i.obligacion.contrato
 			if (c) contratosList.add(c)
 		}
@@ -44,10 +44,10 @@ class ContratoService {
 	
 	def contratosConObligacionesVencidas() {
 		Date now = new Date()
-		List<InstanciaObligacion> instanciasList = InstanciaObligacion.findAll(
+		List<Vencimiento> instanciasList = Vencimiento.findAll(
 			"from InstanciaObligacion as I where I.vencimiento < :now and I.liquidacion is null", [now: now])
 		Set<Contrato> contratosList = new HashSet<>()
-		for (InstanciaObligacion i : instanciasList) {
+		for (Vencimiento i : instanciasList) {
 			Contrato c = i.obligacion.contrato
 			if (c) contratosList.add(c)
 		}

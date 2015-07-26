@@ -7,7 +7,7 @@ class Liquidacion {
 	Date fecha
 	Double total
 	
-	static hasMany = [detalles: DetalleLiquidacion, generadas: InstanciaObligacion]
+	static hasMany = [detalles: DetalleLiquidacion, generadas: Vencimiento]
 	
 	static belongsTo = [contrato: Contrato]
 	

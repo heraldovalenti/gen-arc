@@ -5,7 +5,7 @@ import grails.validation.ValidationException
 import javax.transaction.Transactional
 
 import com.hvalenti.freelance.inmobiliariaDC.Contrato
-import com.hvalenti.freelance.inmobiliariaDC.InstanciaObligacion
+import com.hvalenti.freelance.inmobiliariaDC.Vencimiento
 import com.hvalenti.freelance.inmobiliariaDC.Liquidacion
 
 class RendicionLocadorService {
@@ -22,7 +22,7 @@ class RendicionLocadorService {
 	@Transactional
 	def listObligaciones(Long id) {
 		def contrato = Contrato.get(id)
-		def result = InstanciaObligacion.findAll(QUERY_RENDICION_LOCADOR, [contrato: contrato])
+		def result = Vencimiento.findAll(QUERY_RENDICION_LOCADOR, [contrato: contrato])
 		result = result.collect { it[0] }
 		return result
 	}

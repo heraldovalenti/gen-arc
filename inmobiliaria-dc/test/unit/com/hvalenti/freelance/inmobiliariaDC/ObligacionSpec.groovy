@@ -171,7 +171,7 @@ class ObligacionSpec extends Specification {
 	private void agregarInstancia(Obligacion obligacion, Date fecha) {
 		if (!obligacion.instancias) obligacion.instancias = new HashSet()
 		Long id = obligacion.instancias.size()
-		InstanciaObligacion instancia = new InstanciaObligacion(vencimiento: fecha)
+		Vencimiento instancia = new Vencimiento(vencimiento: fecha)
 		obligacion.instancias.add(instancia)
 	}
 }
