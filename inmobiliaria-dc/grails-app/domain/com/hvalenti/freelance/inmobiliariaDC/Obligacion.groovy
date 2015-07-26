@@ -4,7 +4,6 @@ import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 
 class Obligacion {
 	
-	String responsable
 	String frecuencia
 	Double monto
 	Integer diaVencimiento
@@ -18,7 +17,6 @@ class Obligacion {
 	}
 
     static constraints = {
-		responsable inList: ["Inmobiliaria", "Locatario", "Locador"]
 		frecuencia inList: ["Mensual","Bimestral","Trimestral","Cuatrimestral","Anual"]
 		diaVencimiento min: 1, max: 31
     }
@@ -65,7 +63,6 @@ class Obligacion {
 		int dayOfMonth = Math.min(DateUtil.maxDayOfMonth(now), this.diaVencimiento)
 		Date vencimiento = DateUtil.dateFromNumbers(DateUtil.getYear(now), DateUtil.getMonthOfYear(now), dayOfMonth )
 		Vencimiento nuevaInstancia = new Vencimiento(
-			responsable: this.responsable,
 			monto: this.monto,
 			vencimiento: vencimiento,
 			obligacion: this)
