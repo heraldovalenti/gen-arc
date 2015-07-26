@@ -11,7 +11,7 @@ class ObligacionesService {
 		Date now = new Date()
 		List<Contrato> contratoList = Contrato.list()
 		for (Contrato c : contratoList) {
-			c.generarInstanciasObligacion(now)
+			c.generarVencimientos(now)
 		}
 	}
 }

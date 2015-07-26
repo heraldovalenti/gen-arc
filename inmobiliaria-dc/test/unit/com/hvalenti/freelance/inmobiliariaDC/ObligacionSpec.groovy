@@ -23,12 +23,12 @@ class ObligacionSpec extends Specification {
 		Obligacion o = new Obligacion(diaVencimiento: 12)
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias
-		o.instancias.size() == 1
-		DateUtil.getDayOfMonth(o.instancias.first().vencimiento) == 12
+		o.vencimientos
+		o.vencimientos.size() == 1
+		DateUtil.getDayOfMonth(o.vencimientos.first().vencimiento) == 12
 	}
 
     def "generar instancias no debe generar ninguna instancia"() {
@@ -40,10 +40,10 @@ class ObligacionSpec extends Specification {
 		agregarInstancia(o, DateUtil.addMonths(now, -2))
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias.size() == 3
+		o.vencimientos.size() == 3
     }
 	
 	def "generar instancias no debe generar ninguna instancia para mensual"() {
@@ -53,10 +53,10 @@ class ObligacionSpec extends Specification {
 		agregarInstancia(o, now)
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias.size() == 1
+		o.vencimientos.size() == 1
 	}
 	
 	def "generar instancias debe generar una instancia para mensual"() {
@@ -66,10 +66,10 @@ class ObligacionSpec extends Specification {
 		agregarInstancia(o, DateUtil.addMonths(now, -1))
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias.size() == 2
+		o.vencimientos.size() == 2
 	}
 	
 	def "generar instancias debe generar una instancia para bimestral"() {
@@ -79,10 +79,10 @@ class ObligacionSpec extends Specification {
 		agregarInstancia(o, DateUtil.addMonths(now, -2))
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias.size() == 2
+		o.vencimientos.size() == 2
 	}
 	
 	def "generar instancias no debe generar ninguna instancia para bimestral"() {
@@ -92,10 +92,10 @@ class ObligacionSpec extends Specification {
 		agregarInstancia(o, DateUtil.addMonths(now, -1))
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias.size() == 1
+		o.vencimientos.size() == 1
 	}
 	
 	def "generar instancias no debe generar ninguna instancia para trimestral"() {
@@ -105,10 +105,10 @@ class ObligacionSpec extends Specification {
 		agregarInstancia(o, DateUtil.addMonths(now, -2))
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias.size() == 1
+		o.vencimientos.size() == 1
 	}
 	
 	def "generar instancias debe generar una instancia para trimestral"() {
@@ -118,10 +118,10 @@ class ObligacionSpec extends Specification {
 		agregarInstancia(o, DateUtil.addMonths(now, -3))
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias.size() == 2
+		o.vencimientos.size() == 2
 	}
 	
 	def "generar instancias debe generar una instancia para anual"() {
@@ -131,10 +131,10 @@ class ObligacionSpec extends Specification {
 		agregarInstancia(o, DateUtil.addMonths(now, -12))
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias.size() == 2
+		o.vencimientos.size() == 2
 	}
 	
 	def "generar instancias no debe generar ninguna instancia para anual"() {
@@ -144,10 +144,10 @@ class ObligacionSpec extends Specification {
 		agregarInstancia(o, DateUtil.addMonths(now, -11))
 		
 		when:
-		o.generarInstancias()
+		o.generarVencimientos()
 		
 		then:
-		o.instancias.size() == 1
+		o.vencimientos.size() == 1
 	}
 	
 	def "generar instancia obligacion genera con vencimiento estandar"(now, vencimiento, expected) {
@@ -156,11 +156,11 @@ class ObligacionSpec extends Specification {
 		Obligacion o = new Obligacion(diaVencimiento: vencimiento)
 		
 		when:
-		o.generarInstanciaObligacion(d)
+		o.generarVencimiento(d)
 		
 		then:
-		o.instancias.size() == 1
-		DateUtil.getDayOfMonth(o.instancias.first().vencimiento) == expected
+		o.vencimientos.size() == 1
+		DateUtil.getDayOfMonth(o.vencimientos.first().vencimiento) == expected
 		
 		where:
 		now << ["2015-01-01", "2015-01-01", "2015-02-01", "2016-02-01", "2015-04-01"]
@@ -169,9 +169,9 @@ class ObligacionSpec extends Specification {
 	}
 	
 	private void agregarInstancia(Obligacion obligacion, Date fecha) {
-		if (!obligacion.instancias) obligacion.instancias = new HashSet()
-		Long id = obligacion.instancias.size()
+		if (!obligacion.vencimientos) obligacion.vencimientos = new HashSet()
+		Long id = obligacion.vencimientos.size()
 		Vencimiento instancia = new Vencimiento(vencimiento: fecha)
-		obligacion.instancias.add(instancia)
+		obligacion.vencimientos.add(instancia)
 	}
 }

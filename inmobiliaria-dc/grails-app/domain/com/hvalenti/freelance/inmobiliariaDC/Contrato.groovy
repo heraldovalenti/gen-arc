@@ -13,8 +13,6 @@ class Contrato {
     static constraints = {
 		locador nullable: true
 		locatario nullable: true
-		inicio nullable: true
-		fin nullable: true
     }
 	
 	static mappings = {
@@ -25,7 +23,7 @@ class Contrato {
 		return "Contrato N" + id
 	}
 	
-	public void generarInstanciasObligacion(Date now) {
+	public void generarVencimientos(Date now) {
 		// return if now is null
 		if (!now) return
 		// return if Contrato has not started yet 
@@ -33,7 +31,7 @@ class Contrato {
 		// return if Contrato has finished
 		if ( fin.before(now) && !fin.equals(now) ) return
 		for(Obligacion o : obligaciones) {
-			o.generarInstancias()
+			o.generarVencimientos()
 		}
 	}
 }

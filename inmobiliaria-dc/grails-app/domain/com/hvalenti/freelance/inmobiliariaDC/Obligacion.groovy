@@ -11,10 +11,10 @@ class Obligacion {
 	
 	static belongsTo = [contrato: Contrato]
 	
-	static hasMany = [instancias: Vencimiento]
+	static hasMany = [vencimientos: Vencimiento]
 	
 	static mappings = {
-		instancias cascade: "all-delete-orphan"
+		vencimientos cascade: "all-delete-orphan"
 	}
 
     static constraints = {
@@ -28,41 +28,41 @@ class Obligacion {
 		return "Obligacion N" + id
 	}
 	
-	public void generarInstancias() {
-		if (!instancias) instancias = new HashSet()
-		List<Vencimiento> instanciasList = getOrderedInstancias()
+	public void generarVencimientos() {
+		if (!vencimientos) vencimientos = new HashSet()
+		List<Vencimiento> instanciasList = getOrderedVencimientos()
 		if (instanciasList.isEmpty()) {
-			generarInstanciaObligacion()
+			generarVencimiento()
 		} else {
 			Vencimiento lastInstancia = instanciasList.first()
 			Date now = new Date()
 			int monthDifference = DateUtil.monthDifference(lastInstancia.vencimiento, now)
 			switch(this.frecuencia) {
 				case "Mensual":
-				if (monthDifference >= 1) generarInstanciaObligacion(now)
+				if (monthDifference >= 1) generarVencimiento(now)
 				break
 				
 				case "Bimestral":
-				if (monthDifference >= 2) generarInstanciaObligacion(now)
+				if (monthDifference >= 2) generarVencimiento(now)
 				break
 				
 				case "Trimestral":
-				if (monthDifference >= 3) generarInstanciaObligacion(now)
+				if (monthDifference >= 3) generarVencimiento(now)
 				break
 				
 				case "Cuatrimestral":
-				if (monthDifference >= 4) generarInstanciaObligacion(now)
+				if (monthDifference >= 4) generarVencimiento(now)
 				break
 				
 				case "Anual":
-				if (monthDifference >= 12) generarInstanciaObligacion(now)
+				if (monthDifference >= 12) generarVencimiento(now)
 				break
 			}
 		}
 	}
 	
-	public void generarInstanciaObligacion(Date now) {
-		if (!instancias) instancias = new HashSet()
+	public void generarVencimiento(Date now) {
+		if (!vencimientos) vencimientos = new HashSet()
 		int dayOfMonth = Math.min(DateUtil.maxDayOfMonth(now), this.diaVencimiento)
 		Date vencimiento = DateUtil.dateFromNumbers(DateUtil.getYear(now), DateUtil.getMonthOfYear(now), dayOfMonth )
 		Vencimiento nuevaInstancia = new Vencimiento(
@@ -70,11 +70,11 @@ class Obligacion {
 			monto: this.monto,
 			vencimiento: vencimiento,
 			obligacion: this)
-		this.instancias.add(nuevaInstancia)
+		this.vencimientos.add(nuevaInstancia)
 	}
 	
-	private List<Vencimiento> getOrderedInstancias() {
-		List<Vencimiento> instanciasList = new ArrayList<>(instancias)
+	private List<Vencimiento> getOrderedVencimientos() {
+		List<Vencimiento> instanciasList = new ArrayList<>(vencimientos)
 		instanciasList.sort { a, b -> a.vencimiento.getTime() - b.vencimiento.getTime() }
 		return instanciasList
 	}
