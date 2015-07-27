@@ -7,20 +7,20 @@ class Liquidacion {
 	Date fecha
 	Double total
 	
-	static hasMany = [detalles: DetalleLiquidacion, generadas: Vencimiento]
+	static hasMany = [detalles: DetalleLiquidacion]
 	
 	static belongsTo = [contrato: Contrato]
 	
 	static mapping = {
 		detalles cascade: "all-delete-orphan"
-		generadas cascade: "all-delete-orphan"
 	}
 
     static constraints = {
-		concepto inList: ["Rendicion de locatario", 
-			"Rendicion a locador", "Pago de impuestos"]
+		concepto inList: ["Rendicion de locatario",	"Rendicion a locador", "Pago de impuestos"]
 		detalles validator: { val, obj ->
 			if (!val || val.isEmpty()) return ["notEmpty"]
 		}
     }
+	
+	
 }

@@ -26,13 +26,13 @@ class Obligacion {
 	}
 	
 	public void generarVencimientos() {
+		Date now = new Date()
 		if (!vencimientos) vencimientos = new HashSet()
 		List<Vencimiento> instanciasList = getOrderedVencimientos()
 		if (instanciasList.isEmpty()) {
-			generarVencimiento()
+			generarVencimiento(now)
 		} else {
 			Vencimiento lastInstancia = instanciasList.first()
-			Date now = new Date()
 			int monthDifference = DateUtil.monthDifference(lastInstancia.vencimiento, now)
 			switch(this.frecuencia) {
 				case "Mensual":
