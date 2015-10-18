@@ -5,20 +5,14 @@ import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 class Obligacion {
 	
 	String frecuencia
-	Double monto
-	Integer diaVencimiento
+	String concepto
 	
 	static belongsTo = [contrato: Contrato]
 	
-	static hasMany = [vencimientos: Vencimiento]
+	static hasMany = [responsables: Responsable]
 	
-	static mappings = {
-		vencimientos cascade: "all-delete-orphan"
-	}
-
     static constraints = {
 		frecuencia inList: ["Mensual","Bimestral","Trimestral","Cuatrimestral","Anual"]
-		diaVencimiento min: 1, max: 31
     }
 	
 	public String toString() {

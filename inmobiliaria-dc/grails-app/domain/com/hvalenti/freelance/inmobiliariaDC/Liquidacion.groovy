@@ -1,26 +1,19 @@
 package com.hvalenti.freelance.inmobiliariaDC
 
-
 class Liquidacion {
-	
-	String concepto
+
 	Date fecha
 	Double total
-	
-	static hasMany = [detalles: DetalleLiquidacion]
-	
-	static belongsTo = [contrato: Contrato]
-	
-	static mapping = {
-		detalles cascade: "all-delete-orphan"
-	}
+	Responsable responsable
 
-    static constraints = {
-		concepto inList: ["Rendicion de locatario",	"Rendicion a locador", "Pago de impuestos"]
+	static hasMany = [detalles: DetalleLiquidacion]
+
+	static belongsTo = [contrato: Contrato]
+
+	static constraints = {
+		total min: 0
 		detalles validator: { val, obj ->
 			if (!val || val.isEmpty()) return ["notEmpty"]
 		}
-    }
-	
-	
+	}
 }

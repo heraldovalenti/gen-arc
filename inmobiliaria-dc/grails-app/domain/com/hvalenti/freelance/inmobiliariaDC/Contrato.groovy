@@ -13,11 +13,8 @@ class Contrato {
     static constraints = {
 		locador nullable: true
 		locatario nullable: true
+		fin nullable: true
     }
-	
-	static mappings = {
-		obligaciones cascade: "all-delete-orphan"
-	}
 	
 	public String toString() {
 		return "Contrato N" + id

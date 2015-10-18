@@ -18,12 +18,12 @@ hibernate {
 environments {
     development {
         dataSource {
-			pooled = true
 			dbCreate = "update"
-			url = "jdbc:mysql://localhost/inmobiliaria_dc"
-			driverClassName = "com.mysql.jdbc.Driver"
-			username = "inmobiliaria"
-			password = "inmobiliaria"
+			pooled = true
+		    jmxExport = true
+		    driverClassName = "org.h2.Driver"
+		    username = "sa"
+		    password = ""
 		}
     }
     test {
