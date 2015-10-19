@@ -12,12 +12,6 @@ import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 @TestMixin(GrailsUnitTestMixin)
 class ContratoSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
 	def "generar instancias para contrato activo"() {
 		given:
 		Date now = DateUtil.dateFromString("2015-06-01")

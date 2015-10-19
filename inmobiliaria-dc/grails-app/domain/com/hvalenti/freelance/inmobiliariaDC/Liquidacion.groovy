@@ -11,7 +11,6 @@ class Liquidacion {
 	static belongsTo = [contrato: Contrato]
 
 	static constraints = {
-		total min: 0
 		detalles validator: { val, obj ->
 			if (!val || val.isEmpty()) return ["notEmpty"]
 		}

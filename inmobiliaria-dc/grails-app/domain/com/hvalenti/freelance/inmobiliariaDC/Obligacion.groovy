@@ -9,63 +9,57 @@ class Obligacion {
 	
 	static belongsTo = [contrato: Contrato]
 	
-	static hasMany = [responsables: Responsable]
+	static hasMany = [responsablesObligacion: ResponsableObligacion]
 	
     static constraints = {
-		frecuencia inList: ["Mensual","Bimestral","Trimestral","Cuatrimestral","Anual"]
+		frecuencia inList: ["Mensual","Bimestral","Trimestral","Cuatrimestral","Semestral","Anual"]
     }
 	
 	public String toString() {
 		return "Obligacion N" + id
 	}
 	
-	public void generarVencimientos() {
+	public void generarVencimientos(Responsable responsable) {
 		Date now = new Date()
-		if (!vencimientos) vencimientos = new HashSet()
-		List<Vencimiento> instanciasList = getOrderedVencimientos()
-		if (instanciasList.isEmpty()) {
-			generarVencimiento(now)
-		} else {
-			Vencimiento lastInstancia = instanciasList.first()
-			int monthDifference = DateUtil.monthDifference(lastInstancia.vencimiento, now)
-			switch(this.frecuencia) {
-				case "Mensual":
-				if (monthDifference >= 1) generarVencimiento(now)
-				break
-				
-				case "Bimestral":
-				if (monthDifference >= 2) generarVencimiento(now)
-				break
-				
-				case "Trimestral":
-				if (monthDifference >= 3) generarVencimiento(now)
-				break
-				
-				case "Cuatrimestral":
-				if (monthDifference >= 4) generarVencimiento(now)
-				break
-				
-				case "Anual":
-				if (monthDifference >= 12) generarVencimiento(now)
-				break
+		generarVencimientos(responsable, now)
+	}
+	
+	public void generarVencimientos(Responsable responsable, Date desde) {
+		int cantidadDeMeses = calcularCantidadDeMeses(this.frecuencia)
+		for (ResponsableObligacion responsableObligacion : responsablesObligacion) {
+			if (responsableObligacion.responsable.equals(responsable)) {
+				responsableObligacion.generarVencimiento(desde, cantidadDeMeses)
 			}
 		}
 	}
 	
-	public void generarVencimiento(Date now) {
-		if (!vencimientos) vencimientos = new HashSet()
-		int dayOfMonth = Math.min(DateUtil.maxDayOfMonth(now), this.diaVencimiento)
-		Date vencimiento = DateUtil.dateFromNumbers(DateUtil.getYear(now), DateUtil.getMonthOfYear(now), dayOfMonth )
-		Vencimiento nuevaInstancia = new Vencimiento(
-			monto: this.monto,
-			vencimiento: vencimiento,
-			obligacion: this)
-		this.vencimientos.add(nuevaInstancia)
-	}
-	
-	private List<Vencimiento> getOrderedVencimientos() {
-		List<Vencimiento> instanciasList = new ArrayList<>(vencimientos)
-		instanciasList.sort { a, b -> a.vencimiento.getTime() - b.vencimiento.getTime() }
-		return instanciasList
+	public static int calcularCantidadDeMeses(String frecuencia) {
+		int result = 0;
+		switch(frecuencia) {
+			case "Mensual":
+			result = 1
+			break
+			
+			case "Bimestral":
+			result = 2
+			break
+			
+			case "Trimestral":
+			result = 3
+			break
+			
+			case "Cuatrimestral":
+			result = 4
+			break
+			
+			case "Semestral":
+			result = 6
+			break
+			
+			case "Anual":
+			result = 12
+			break
+		}
+		return result
 	}
 }

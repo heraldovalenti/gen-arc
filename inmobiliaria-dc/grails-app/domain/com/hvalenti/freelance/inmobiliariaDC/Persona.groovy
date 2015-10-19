@@ -1,5 +1,9 @@
 package com.hvalenti.freelance.inmobiliariaDC
 
+import java.util.Formatter.FormatSpecifier;
+
+import grails.rest.Resource
+
 class Persona {
 
     String nombres

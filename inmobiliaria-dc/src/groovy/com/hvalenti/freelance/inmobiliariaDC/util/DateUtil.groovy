@@ -57,6 +57,17 @@ class DateUtil {
 		return monthsBetween.getMonths()
 	}
 	
+	public static int relativeMonthDifference(Date from, Date to) {
+		DateTime dt1 = new DateTime(from)
+		DateTime dt2 = new DateTime(to)
+		Months monthsBetween = Months.monthsBetween(dt1, dt2)
+		int result = monthsBetween.getMonths()
+		if (result == 0 && (dt1.getMonthOfYear() != dt2.getMonthOfYear()) ) {
+			result++;
+		}
+		return result
+	}
+	
 	public static String formatDate(Date date) {
 		return formatDate(DEFAULT_FORMAT, date)
 	}
