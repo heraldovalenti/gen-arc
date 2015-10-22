@@ -19,9 +19,11 @@ class Obligacion {
 		return "Obligacion N" + id
 	}
 	
-	public void generarVencimientos(Responsable responsable) {
-		Date now = new Date()
-		generarVencimientos(responsable, now)
+	public generarVencimientos(Date desde) {
+		int cantidadDeMeses = calcularCantidadDeMeses(this.frecuencia)
+		for (ResponsableObligacion responsableObligacion : responsablesObligacion) {
+			responsableObligacion.generarVencimiento(desde, cantidadDeMeses)
+		}
 	}
 	
 	public void generarVencimientos(Responsable responsable, Date desde) {

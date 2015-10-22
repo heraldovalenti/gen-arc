@@ -20,6 +20,19 @@ class Contrato {
 		return "Contrato N" + id
 	}
 	
+	public Liquidacion generarLiquidacionLocatario() {
+		
+	}
+	
+	public boolean esContratoActivo(Date now) {
+		if (!now) {
+			return false
+		}
+		boolean esIniciado = inicio.after(now) || inicio.equals(now)
+		boolean esFinalizado = fin && fin.before(now)
+		return ( esIniciado && !esFinalizado )
+	}
+		
 	public void generarVencimientos(Date now) {
 		// return if now is null
 		if (!now) return
@@ -28,7 +41,7 @@ class Contrato {
 		// return if Contrato has finished
 		if ( fin.before(now) && !fin.equals(now) ) return
 		for(Obligacion o : obligaciones) {
-			o.generarVencimientos()
+			o.generarVencimientos(now)
 		}
 	}
 }

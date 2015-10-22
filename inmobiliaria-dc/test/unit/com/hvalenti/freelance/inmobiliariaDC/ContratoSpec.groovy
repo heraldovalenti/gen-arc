@@ -12,6 +12,86 @@ import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 @TestMixin(GrailsUnitTestMixin)
 class ContratoSpec extends Specification {
 
+	def "el contrato esta activo cuando no tiene fecha de fin"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-01-01")
+		Date inicio = DateUtil.dateFromString("2015-01-01")
+		Contrato c = new Contrato(inicio: inicio)
+		
+		when:
+		boolean contratoActivo = c.esContratoActivo(now)
+		
+		then:
+		contratoActivo
+	}
+	
+	def "el contrato esta activo cuando la fecha indicada es la misma que la fecha de incio"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-01-01")
+		Date inicio = DateUtil.dateFromString("2015-01-01")
+		Contrato c = new Contrato(inicio: inicio)
+		
+		when:
+		boolean contratoActivo = c.esContratoActivo(now)
+		
+		then:
+		contratoActivo
+	}
+	
+	def "el contrato esta activo cuando la fecha indicada es la misma que la fecha de fin"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-12-31")
+		Date inicio = DateUtil.dateFromString("2015-12-31")
+		Contrato c = new Contrato(inicio: inicio)
+		
+		when:
+		boolean contratoActivo = c.esContratoActivo(now)
+		
+		then:
+		contratoActivo
+	}
+	
+	def "el contrato esta activo cuando la fecha indicada esta entre la fecha de incio y de fin"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-06-01")
+		Date inicio = DateUtil.dateFromString("2015-01-01")
+		Date fin = DateUtil.dateFromString("2015-12-31")
+		Contrato c = new Contrato(inicio: inicio, fin: fin)
+		
+		when:
+		boolean contratoActivo = c.esContratoActivo(now)
+		
+		then:
+		contratoActivo
+	}
+	
+	def "el contrato esta inactivo cuando la fecha indicada esta antes de la fecha de incio"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-01-01")
+		Date inicio = DateUtil.dateFromString("2015-06-01")
+		Contrato c = new Contrato(inicio: inicio)
+		
+		when:
+		boolean contratoActivo = c.esContratoActivo(now)
+		
+		then:
+		!contratoActivo
+	}
+	
+	def "el contrato esta inactivo cuando la fecha indicada esta despues de la fecha de fin"() {
+		given:
+		Date now = DateUtil.dateFromString("2016-01-01")
+		Date inicio = DateUtil.dateFromString("2015-01-01")
+		Date fin = DateUtil.dateFromString("2015-12-31")
+		Contrato c = new Contrato(fin: fin, inicio: inicio)
+		
+		when:
+		boolean contratoActivo = c.esContratoActivo(now)
+		
+		then:
+		!contratoActivo
+	}
+	
 	def "generar instancias para contrato activo"() {
 		given:
 		Date now = DateUtil.dateFromString("2015-06-01")
