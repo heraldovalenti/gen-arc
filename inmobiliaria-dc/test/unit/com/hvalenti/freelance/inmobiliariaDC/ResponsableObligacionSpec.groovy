@@ -97,5 +97,19 @@ class ResponsableObligacionSpec extends Specification {
 		DateUtil.getMonthOfYear(fechaUltimoVencimiento) == 2
 		DateUtil.getDayOfMonth(fechaUltimoVencimiento) == 12
 	}
-
+	
+	def "es de responsable test"() {
+		given:
+		Responsable r1 = new Responsable(descripcion: "Locador")
+		Responsable r2 = new Responsable(descripcion: "Locatario")
+		ResponsableObligacion ro1 = new ResponsableObligacion(responsable: r1)
+		
+		when:
+		boolean esResponsableLocador = ro1.esDeResponsable(r1)
+		boolean esResponsableLocatario = ro1.esDeResponsable(r2)
+		
+		then:
+		esResponsableLocador == true
+		esResponsableLocatario == false
+	}
 }

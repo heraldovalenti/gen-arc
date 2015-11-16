@@ -46,4 +46,11 @@ class ResponsableObligacion {
 		}
 		return result;
 	}
+	
+	public boolean esDeResponsable(Responsable responsable) {
+		if (!responsable || !this.responsable) {
+			return false
+		}
+		return ( this.responsable.equals(responsable) )
+	}
 }
