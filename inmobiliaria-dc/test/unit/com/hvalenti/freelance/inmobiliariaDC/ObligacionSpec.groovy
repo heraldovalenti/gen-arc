@@ -1,11 +1,9 @@
 
 package com.hvalenti.freelance.inmobiliariaDC
 
-import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil;
-import com.hvalenti.freelance.inmobiliariaDC.util.DateUtilSpec;
-
 import grails.test.mixin.*
 import grails.test.mixin.domain.DomainClassUnitTestMixin
+import grails.test.mixin.support.GrailsUnitTestMixin;
 import spock.lang.Specification
 
 /**
@@ -41,6 +39,41 @@ class ObligacionSpec extends Specification {
 		obligacion.responsablesObligacion.size() == 1
 	}
 	
-	def "se generan solo vencimientos para el responsable indicado"() {
+	def "se generan solo vencimientos para el responsable indicado"(calls, esDeResponsable) {
+		given:
+		Obligacion o1 = new Obligacion()
+		Responsable r1 = new Responsable(descripcion: "Locador")
+		o1.responsablesObligacion = new HashSet<>()
+		def roMock = mockFor(ResponsableObligacion)
+		roMock.demand.esDeResponsable(1) { r -> esDeResponsable }
+		roMock.demand.generarVencimiento(calls) { Date -> }
+		o1.responsablesObligacion.add(roMock.createMock())
+		
+		when:
+		o1.generarVencimientos(r1, new Date())
+		
+		then:
+		roMock.verify()
+		
+		where:
+		calls << [1,0]
+		esDeResponsable << [true, false]
+	}
+	
+	def "se generan solo vencimientos para todos los responsables"() {
+		given:
+		Obligacion o1 = new Obligacion()
+		o1.responsablesObligacion = new HashSet<>()
+		def roMock = mockFor(ResponsableObligacion)
+		roMock.demand.generarVencimiento(3) { Date -> }
+		o1.responsablesObligacion.add(roMock.createMock())
+		o1.responsablesObligacion.add(roMock.createMock())
+		o1.responsablesObligacion.add(roMock.createMock())
+		
+		when:
+		o1.generarVencimientos(new Date())
+		
+		then:
+		roMock.verify()
 	}
 }
