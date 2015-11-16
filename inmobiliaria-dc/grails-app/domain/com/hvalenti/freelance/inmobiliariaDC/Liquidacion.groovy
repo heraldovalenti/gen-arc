@@ -15,4 +15,12 @@ class Liquidacion {
 			if (!val || val.isEmpty()) return ["notEmpty"]
 		}
 	}
+	
+	public void calcularTotal() {
+		double total = 0.0
+		for(def detalle : detalles) {
+			total += detalle.monto
+		}
+		this.total = total
+	}
 }
