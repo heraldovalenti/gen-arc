@@ -35,11 +35,14 @@ class Contrato {
 		
 	public void generarVencimientos(Date now) {
 		// return if now is null
-		if (!now) return
-		// return if Contrato has not started yet 
-		if ( inicio.after(now) && !inicio.equals(now) ) return
-		// return if Contrato has finished
-		if ( fin.before(now) && !fin.equals(now) ) return
+		if (!now) {
+			return
+		}
+		// return if Contrato is not active
+		if (!this.esContratoActivo(now)) {
+			return
+		}
+		
 		for(Obligacion o : obligaciones) {
 			o.generarVencimientos(now)
 		}
