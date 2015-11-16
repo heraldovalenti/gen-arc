@@ -20,8 +20,23 @@ class Contrato {
 		return "Contrato N" + id
 	}
 	
-	public Liquidacion generarLiquidacionLocatario() {
-		
+	public void generarLiquidacion(Responsable responsable, Date now) {
+		// return if now is null or contrato is not active
+		if (!responsable || !now || !this.esContratoActivo(now)) {
+			return
+		}
+		for(def o : obligaciones) {
+			def vencimientosPendientes = o.vencimientosPendientesPara(responsable, now)
+			if (!vencimientosPendientes.isEmpty()) {
+				Liquidacion liquidacion = new Liquidacion(responsable: responsable, fecha: now)
+				for (def vencimiento : vencimientosPendientes) {
+					def detalleLiquidacion = DetalleLiquidacion.generarDetalleDesdeVencimiento(vencimiento)
+					liquidacion.addToDetalles(detalleLiquidacion)
+				}
+				liquidacion.calcularTotal()
+				addToLiquidaciones(liquidacion)
+			}
+		}
 	}
 	
 	public boolean esContratoActivo(Date now) {
@@ -34,12 +49,8 @@ class Contrato {
 	}
 		
 	public void generarVencimientos(Date now) {
-		// return if now is null
-		if (!now) {
-			return
-		}
-		// return if Contrato is not active
-		if (!this.esContratoActivo(now)) {
+		// return if now is null or contrato is not active
+		if (!now || !this.esContratoActivo(now)) {
 			return
 		}
 		
