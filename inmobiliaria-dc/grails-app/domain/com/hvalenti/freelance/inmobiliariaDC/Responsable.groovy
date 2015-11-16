@@ -6,7 +6,7 @@ class Responsable {
 		
 	static constraints = {
 		descripcion inLIst: ["Locador", "Locatario", "Inmobiliaria"]
-	}
+	}
 
 	@Override
 	public int hashCode() {
@@ -19,19 +19,21 @@ class Responsable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		if (obj == null){
+			return false
+		}
+		if (getClass() != obj.getClass()) {
+			return false
+		}
 		Responsable other = (Responsable) obj;
 		if (descripcion == null) {
-			if (other.descripcion != null)
-				return false;
-		} else if (!descripcion.equals(other.descripcion))
-			return false;
-		return true;
+			if (other.descripcion != null) {
+				return false
+			}
+		} else if (!descripcion.equals(other.descripcion)) {
+			return false
+		}
+		return true
 	}
 	
 }
