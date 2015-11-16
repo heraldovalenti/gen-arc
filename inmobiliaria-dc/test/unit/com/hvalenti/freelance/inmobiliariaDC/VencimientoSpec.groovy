@@ -64,5 +64,16 @@ class VencimientoSpec extends Specification {
 		then:
 		pendiente == true
 	}
+	
+	def "vencimiento no es pendiente cuando no se indica fecha"() {
+		given:
+		Vencimiento v1 = new Vencimiento()
+		
+		when:
+		boolean pendiente = v1.esPendiente(null)
+		
+		then:
+		pendiente == false
+	}
 
 }

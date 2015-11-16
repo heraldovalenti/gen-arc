@@ -14,6 +14,9 @@ class Vencimiento {
 	}
 	
 	public boolean esPendiente(Date now) {
+		if (!now) {
+			return false
+		}
 		return ( liquidacion == null && ( vencimiento.equals(now) || vencimiento.before(now) ))
 	}
 
