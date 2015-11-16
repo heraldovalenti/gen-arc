@@ -28,8 +28,8 @@ class Obligacion {
 	
 	public void generarVencimientos(Responsable responsable, Date desde) {
 		int cantidadDeMeses = calcularCantidadDeMeses(this.frecuencia)
-		for (ResponsableObligacion responsableObligacion : responsablesObligacion) {
-			if (responsableObligacion.responsable.equals(responsable)) {
+		for (def responsableObligacion : responsablesObligacion) {
+			if (responsableObligacion.esDeResponsable(responsable)) {
 				responsableObligacion.generarVencimiento(desde, cantidadDeMeses)
 			}
 		}

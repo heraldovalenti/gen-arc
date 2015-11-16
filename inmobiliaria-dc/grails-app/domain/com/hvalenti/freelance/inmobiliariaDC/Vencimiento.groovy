@@ -2,16 +2,16 @@ package com.hvalenti.freelance.inmobiliariaDC
 
 
 class Vencimiento {
-	
+
 	Date vencimiento
 	Double monto
-	
+
 	static belongsTo = [responsableObligacion: ResponsableObligacion]
 
-    static constraints = {
-    }
+	static constraints = {
+	}
 
-		@Override
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -26,6 +26,5 @@ class Vencimiento {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
-	
+	}
 }
