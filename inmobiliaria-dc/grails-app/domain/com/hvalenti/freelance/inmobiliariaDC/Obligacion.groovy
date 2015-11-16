@@ -35,6 +35,16 @@ class Obligacion {
 		}
 	}
 	
+	public List<Vencimiento> vencimientosPendientesPara(Responsable responsable, Date now) {
+		def vencimientosPendientes = new ArrayList<Vencimiento>()
+		for (def responsableObligacion : responsablesObligacion) {
+			if (responsableObligacion.esDeResponsable(responsable)) {
+				vencimientosPendientes.addAll(responsableObligacion.vencimientosPendientes(now))
+			}
+		}
+		return vencimientosPendientes
+	}
+	
 	public static int calcularCantidadDeMeses(String frecuencia) {
 		int result = 0;
 		switch(frecuencia) {

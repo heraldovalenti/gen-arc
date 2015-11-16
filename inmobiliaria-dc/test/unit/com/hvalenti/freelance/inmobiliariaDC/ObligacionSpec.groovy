@@ -3,13 +3,14 @@ package com.hvalenti.freelance.inmobiliariaDC
 
 import grails.test.mixin.*
 import grails.test.mixin.domain.DomainClassUnitTestMixin
-import grails.test.mixin.support.GrailsUnitTestMixin;
 import spock.lang.Specification
+
+import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
-@Mock([Obligacion, ResponsableObligacion])
+@Mock([Obligacion, ResponsableObligacion, Vencimiento])
 class ObligacionSpec extends Specification {
 	
     def "calcular cantidad de meses de frecuencia"(frecuenciaString, frecuenciaInteger) {
@@ -60,7 +61,7 @@ class ObligacionSpec extends Specification {
 		esDeResponsable << [true, false]
 	}
 	
-	def "se generan solo vencimientos para todos los responsables"() {
+	def "se generan vencimientos para todos los responsables"() {
 		given:
 		Obligacion o1 = new Obligacion()
 		o1.responsablesObligacion = new HashSet<>()
@@ -75,5 +76,33 @@ class ObligacionSpec extends Specification {
 		
 		then:
 		roMock.verify()
+	}
+	
+	def "vencimientos pendientes solo para responsable"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-06-05")
+		Date fechaVencimiento1 = DateUtil.dateFromString("2015-06-01")
+		Date fechaVencimiento2 = DateUtil.dateFromString("2015-06-10")
+		Date fechaVencimiento3 = DateUtil.dateFromString("2015-06-02")
+		Obligacion o = new Obligacion()
+		Responsable r1 = new Responsable(descripcion: "Locatario")
+		Responsable r2 = new Responsable(descripcion: "Locador")
+		ResponsableObligacion ro1 = new ResponsableObligacion(responsable: r1)
+		ResponsableObligacion ro2 = new ResponsableObligacion(responsable: r2)
+		Vencimiento v1 = new Vencimiento(vencimiento: fechaVencimiento1)
+		Vencimiento v2 = new Vencimiento(vencimiento: fechaVencimiento2)
+		Vencimiento v3 = new Vencimiento(vencimiento: fechaVencimiento3, liquidacion: new DetalleLiquidacion())
+		ro1.addToVencimientos(v1)
+		ro2.addToVencimientos(v2)
+		ro2.addToVencimientos(v3)
+		o.addToResponsablesObligacion(ro1)
+		o.addToResponsablesObligacion(ro2)
+		
+		when:
+		def pendientes = o.vencimientosPendientesPara(r1, now)
+		
+		then:
+		pendientes.size() == 1
+		pendientes[0].vencimiento == fechaVencimiento1
 	}
 }
