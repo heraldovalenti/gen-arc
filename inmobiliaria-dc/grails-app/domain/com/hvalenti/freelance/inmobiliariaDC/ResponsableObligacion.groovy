@@ -37,6 +37,16 @@ class ResponsableObligacion {
 		}
 	}
 	
+	public List<Vencimiento> vencimientosPendientes(Date now) {
+		def vencimientosPendientes = new ArrayList<Vencimiento>()
+		for(def vencimiento : vencimientos) {
+			if (vencimiento.esPendiente(now)) {
+				vencimientosPendientes.add(vencimiento)
+			}
+		}
+		return vencimientosPendientes
+	}
+	
 	public Vencimiento getUltimoVencimiento() {
 		Vencimiento result = null
 		for (Vencimiento vencimiento : vencimientos) {

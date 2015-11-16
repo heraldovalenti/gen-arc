@@ -7,7 +7,7 @@ import spock.lang.Specification
 
 import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 
-@TestMixin(GrailsUnitTestMixin)
+@Mock([ResponsableObligacion, Vencimiento])
 class ResponsableObligacionSpec extends Specification {
 	
 	def "al solicitar el ultimo vencimiento no se indica ningun vencimiento cuando responsable obligacion no tiene vencimientos"() {
@@ -111,5 +111,67 @@ class ResponsableObligacionSpec extends Specification {
 		then:
 		esResponsableLocador == true
 		esResponsableLocatario == false
+	}
+	
+	def "vencimientos pendientes para fecha de vencidos"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-06-01")
+		Date fechaVencido = DateUtil.dateFromString("2015-06-01")
+		Date fechaNoVencido = DateUtil.dateFromString("2015-06-02")
+		ResponsableObligacion r = new ResponsableObligacion()
+		Vencimiento vencido = new Vencimiento(vencimiento: fechaVencido)
+		Vencimiento noVencido = new Vencimiento(vencimiento: fechaNoVencido)
+		Vencimiento liquidado = new Vencimiento(liquidacion: new DetalleLiquidacion())
+		r.addToVencimientos(vencido)
+		r.addToVencimientos(noVencido)
+		r.addToVencimientos(liquidado)
+		
+		when:
+		def pendientes = r.vencimientosPendientes(now)
+		
+		then:
+		pendientes.size() == 1
+		def vencimiento = pendientes.get(0)
+		vencimiento.vencimiento == fechaVencido
+	}
+	
+	def "sin vencimientos pendientes para fecha de no vencidos todavia"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-01-01")
+		Date fechaNoVencido1 = DateUtil.dateFromString("2015-06-01")
+		Date fechaNoVencido2 = DateUtil.dateFromString("2015-06-02")
+		ResponsableObligacion r = new ResponsableObligacion()
+		Vencimiento noVencido1 = new Vencimiento(vencimiento: fechaNoVencido1)
+		Vencimiento noVencido2 = new Vencimiento(vencimiento: fechaNoVencido2)
+		Vencimiento liquidado = new Vencimiento(liquidacion: new DetalleLiquidacion())
+		r.addToVencimientos(noVencido1)
+		r.addToVencimientos(noVencido2)
+		r.addToVencimientos(liquidado)
+		
+		when:
+		def pendientes = r.vencimientosPendientes(now)
+		
+		then:
+		pendientes.size() == 0
+	}
+	
+	def "varios vencimientos pendientes para fecha de vencidos"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-06-03")
+		Date fechaVencido1 = DateUtil.dateFromString("2015-06-01")
+		Date fechaVencido2 = DateUtil.dateFromString("2015-06-02")
+		ResponsableObligacion r = new ResponsableObligacion()
+		Vencimiento vencido1 = new Vencimiento(vencimiento: fechaVencido1)
+		Vencimiento vencido2 = new Vencimiento(vencimiento: fechaVencido2)
+		Vencimiento liquidado = new Vencimiento(liquidacion: new DetalleLiquidacion())
+		r.addToVencimientos(vencido1)
+		r.addToVencimientos(vencido2)
+		r.addToVencimientos(liquidado)
+		
+		when:
+		def pendientes = r.vencimientosPendientes(now)
+		
+		then:
+		pendientes.size() == 2
 	}
 }
