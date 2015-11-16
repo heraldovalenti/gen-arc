@@ -28,7 +28,7 @@ class Contrato {
 		if (!now) {
 			return false
 		}
-		boolean esIniciado = inicio.after(now) || inicio.equals(now)
+		boolean esIniciado = inicio.before(now) || inicio.equals(now)
 		boolean esFinalizado = fin && fin.before(now)
 		return ( esIniciado && !esFinalizado )
 	}

@@ -25,7 +25,7 @@ class ContratoSpec extends Specification {
 		contratoActivo
 	}
 	
-	def "el contrato esta activo cuando la fecha indicada es la misma que la fecha de incio"() {
+	def "el contrato esta activo cuando la fecha indicada es la misma que la fecha de inicio"() {
 		given:
 		Date now = DateUtil.dateFromString("2015-01-01")
 		Date inicio = DateUtil.dateFromString("2015-01-01")
@@ -51,7 +51,7 @@ class ContratoSpec extends Specification {
 		contratoActivo
 	}
 	
-	def "el contrato esta activo cuando la fecha indicada esta entre la fecha de incio y de fin"() {
+	def "el contrato esta activo cuando la fecha indicada esta entre la fecha de inicio y de fin"() {
 		given:
 		Date now = DateUtil.dateFromString("2015-06-01")
 		Date inicio = DateUtil.dateFromString("2015-01-01")
@@ -65,7 +65,7 @@ class ContratoSpec extends Specification {
 		contratoActivo
 	}
 	
-	def "el contrato esta inactivo cuando la fecha indicada esta antes de la fecha de incio"() {
+	def "el contrato esta inactivo cuando la fecha indicada esta antes de la fecha de inicio"() {
 		given:
 		Date now = DateUtil.dateFromString("2015-01-01")
 		Date inicio = DateUtil.dateFromString("2015-06-01")
