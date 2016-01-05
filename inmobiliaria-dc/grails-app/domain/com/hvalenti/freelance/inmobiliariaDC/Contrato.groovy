@@ -20,6 +20,18 @@ class Contrato {
 		return "Contrato N" + id
 	}
 	
+	public boolean existenVencimientosPendientesPara(Date now) {
+		return ( !vencimientosPendientesPara(now).isEmpty() )
+	}
+	
+	public List<Vencimiento> vencimientosPendientesPara(Date now) {
+		def vencimientosPendientes = new ArrayList<Vencimiento>()
+		for(def o : obligaciones) {
+			vencimientosPendientes.addAll( o.vencimientosPendientesPara(now) )
+		}
+		return vencimientosPendientes
+	}
+	
 	public void generarLiquidacion(Responsable responsable, Date now) {
 		// return if now is null or contrato is not active
 		if (!responsable || !now || !this.esContratoActivo(now)) {

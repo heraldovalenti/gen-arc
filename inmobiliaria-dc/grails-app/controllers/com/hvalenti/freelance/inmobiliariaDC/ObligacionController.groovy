@@ -4,12 +4,12 @@ import grails.converters.JSON
 
 class ObligacionController {
 	
-	def obligacionesService
+	def vencimientosService
 	
 	static scaffold = Obligacion
 	
 	def generarObligaciones() {
-		obligacionesService.generarObligaciones()
+		vencimientosService.generarObligaciones()
 		render "OK"
 	}
 	
