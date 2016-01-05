@@ -15,6 +15,7 @@ var Human = {
 };
 
 var Engineer = Object.create(Human, {});
+Engineer.prototype = subclassOf(Human);
 Engineer.calculateSquareArea = function(s1,s2) {
 	return (s1 * s2);
 }
@@ -22,7 +23,15 @@ Engineer.calculateCircleArea = function(radius) {
 	return ( 3.1416 * radius * radius );
 }
 
-var Doctor = Object.create(Engineer, {});
+function subclassOf(base) {
+	_subclassOf.prototype = base.prototype;
+	return new _subclassOf();
+}
+function _subclassOf() {};
+
+var Doctor = Object.create(Engineer, {
+	licenceNumber : { value : undefined }
+});
 Doctor.doPapper = function(title) {
 	var papper = { 
 		title: title,
@@ -30,10 +39,10 @@ Doctor.doPapper = function(title) {
 	};
 	return tesis;
 }
-Doctor.licenceNumber = '';
+//Doctor.licenceNumber = '';
 
 var heril = Object.create(Engineer, {
-	firstName: { value : "Heraldo"},
+	//firstName: { value : "Heraldo"},
 	lastName: { value: "Valenti" },
 	gender : { value : "M" }
 });
