@@ -1,8 +1,7 @@
 package com.hvalenti.freelance.inmobiliariaDC
 
-import grails.rest.Resource
 
-@Resource
+//@Resource
 class Domicilio {
 	
 	String calle
