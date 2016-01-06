@@ -17,24 +17,37 @@ class ResponsableObligacion {
 	}
 	
 	public void generarVencimiento(Date desde, int frecuenciaMeses) {
+		Vencimiento proximoVencimientoGenerado = obtenerVencimientoGenerado(desde, frecuenciaMeses)
+		if (proximoVencimientoGenerado) {
+			this.vencimientos.add(proximoVencimientoGenerado)
+		}
+	}
+	
+	public boolean existeVencimientoPendienteDeGenerar(Date desde, int frecuenciaMeses) {
+		return ( obtenerVencimientoGenerado(desde, frecuenciaMeses) != null )
+	}
+	
+	private Vencimiento obtenerVencimientoGenerado(Date desde, int frecuenciaMeses) {
 		Vencimiento ultimoVencimiento = this.getUltimoVencimiento()
 		Vencimiento proximoVencimiento = new Vencimiento(monto: this.monto, obligacion: this)
+		Vencimiento proximoVencimientoGenerado = null
 		if (!ultimoVencimiento) {
 			Date vencimiento = DateUtil.dateFromNumbers(DateUtil.getYear(desde), DateUtil.getMonthOfYear(desde), diaVencimiento )
 			proximoVencimiento.vencimiento = vencimiento
-			this.vencimientos.add(proximoVencimiento)
+			proximoVencimientoGenerado = proximoVencimiento
 		} else {
 			int monthDifference = DateUtil.relativeMonthDifference(desde, ultimoVencimiento.vencimiento)
 			if (monthDifference >= frecuenciaMeses) {
 				Date fechaProximoVencimiento = DateUtil.dateFromNumbers(
-					DateUtil.getYear(ultimoVencimiento.vencimiento), 
+					DateUtil.getYear(ultimoVencimiento.vencimiento),
 					DateUtil.getMonthOfYear(ultimoVencimiento.vencimiento),
 					diaVencimiento)
 				fechaProximoVencimiento = DateUtil.addMonths(fechaProximoVencimiento, frecuenciaMeses)
 				proximoVencimiento.vencimiento = fechaProximoVencimiento
-				this.vencimientos.add(proximoVencimiento)
+				proximoVencimientoGenerado = proximoVencimiento
 			}
 		}
+		return proximoVencimientoGenerado
 	}
 	
 	public List<Vencimiento> vencimientosPendientesDeLiquidacion(Date now) {

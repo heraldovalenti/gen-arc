@@ -54,6 +54,38 @@ class ResponsableObligacionSpec extends Specification {
 		DateUtil.getDayOfMonth(ultimoVencimiento.vencimiento) == 12
 	}
 	
+	def "existen vencimientos pendientes de generar"() {
+		given:
+		int frecuencia = Obligacion.calcularCantidadDeMeses("Mensual")
+		Date date = DateUtil.dateFromNumbers(2015, 1, 1)
+		ResponsableObligacion responsableObligacion = new ResponsableObligacion(diaVencimiento: 12, monto: 0.0)
+		responsableObligacion.vencimientos = new HashSet()
+		
+		when:
+		boolean existenVencimientosPendientesDeGenerar = responsableObligacion.existeVencimientoPendienteDeGenerar(date, frecuencia)
+		
+		then:
+		existenVencimientosPendientesDeGenerar
+	}
+	
+	def "no existen vencimientos pendientes de generar"() {
+		given:
+		int frecuencia = Obligacion.calcularCantidadDeMeses("Mensual")
+		Date now = DateUtil.dateFromNumbers(2015, 1, 1)
+		Date fechaVencimiento = DateUtil.dateFromNumbers(2015, 1, 1)
+		ResponsableObligacion responsableObligacion = new ResponsableObligacion(diaVencimiento: 1, monto: 0.0)
+		responsableObligacion.vencimientos = new HashSet()
+		Vencimiento v1 = new Vencimiento(id: 1, vencimiento: fechaVencimiento, monto: 0.0)
+		responsableObligacion.vencimientos.add(v1)
+		responsableObligacion.vencimientos.size() == 1
+		
+		when:
+		boolean existenVencimientosPendientesDeGenerar = responsableObligacion.existeVencimientoPendienteDeGenerar(now, frecuencia)
+		
+		then:
+		!existenVencimientosPendientesDeGenerar
+	}
+	
 	def "al generar vencimiento mensual con el vencimiento del mes ya generado no se generan nuevos vencimientos"() {
 		given:
 		int frecuencia = Obligacion.calcularCantidadDeMeses("Mensual")
