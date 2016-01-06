@@ -126,7 +126,7 @@ class ResponsableObligacionSpec extends Specification {
 		r.addToVencimientos(liquidado)
 		
 		when:
-		def pendientes = r.vencimientosPendientes(now)
+		def pendientes = r.vencimientosPendientesDeLiquidacion(now)
 		
 		then:
 		pendientes.size() == 1
@@ -148,7 +148,7 @@ class ResponsableObligacionSpec extends Specification {
 		r.addToVencimientos(liquidado)
 		
 		when:
-		def pendientes = r.vencimientosPendientes(now)
+		def pendientes = r.vencimientosPendientesDeLiquidacion(now)
 		
 		then:
 		pendientes.size() == 0
@@ -168,7 +168,7 @@ class ResponsableObligacionSpec extends Specification {
 		r.addToVencimientos(liquidado)
 		
 		when:
-		def pendientes = r.vencimientosPendientes(now)
+		def pendientes = r.vencimientosPendientesDeLiquidacion(now)
 		
 		then:
 		pendientes.size() == 2
