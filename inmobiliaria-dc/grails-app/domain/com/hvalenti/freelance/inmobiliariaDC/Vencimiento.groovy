@@ -13,7 +13,7 @@ class Vencimiento {
 		liquidacion nullable: true
 	}
 	
-	public boolean esPendiente(Date now) {
+	public boolean esPendienteDeLiquidacion(Date now) {
 		if (!now) {
 			return false
 		}

@@ -15,7 +15,7 @@ class VencimientoSpec extends Specification {
 		v1.liquidacion = new DetalleLiquidacion()
 		
 		when:
-		boolean pendiente = v1.esPendiente(now)
+		boolean pendiente = v1.esPendienteDeLiquidacion(now)
 		
 		then:
 		pendiente == false
@@ -30,7 +30,7 @@ class VencimientoSpec extends Specification {
 		v1.liquidacion = null
 		
 		when:
-		boolean pendiente = v1.esPendiente(now)
+		boolean pendiente = v1.esPendienteDeLiquidacion(now)
 		
 		then:
 		pendiente == false
@@ -44,7 +44,7 @@ class VencimientoSpec extends Specification {
 		v1.liquidacion = null
 		
 		when:
-		boolean pendiente = v1.esPendiente(now)
+		boolean pendiente = v1.esPendienteDeLiquidacion(now)
 		
 		then:
 		pendiente == true
@@ -59,7 +59,7 @@ class VencimientoSpec extends Specification {
 		v1.liquidacion = null
 		
 		when:
-		boolean pendiente = v1.esPendiente(now)
+		boolean pendiente = v1.esPendienteDeLiquidacion(now)
 		
 		then:
 		pendiente == true
@@ -70,7 +70,7 @@ class VencimientoSpec extends Specification {
 		Vencimiento v1 = new Vencimiento()
 		
 		when:
-		boolean pendiente = v1.esPendiente(null)
+		boolean pendiente = v1.esPendienteDeLiquidacion(null)
 		
 		then:
 		pendiente == false
