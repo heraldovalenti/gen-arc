@@ -35,7 +35,7 @@ class Obligacion {
 		}
 	}
 	
-	public List<Vencimiento> vencimientosPendientesPara(Date now) {
+	public List<Vencimiento> vencimientosPendientesDeLiquidacion(Date now) {
 		def vencimientosPendientes = new ArrayList<Vencimiento>()
 		for (def responsableObligacion : responsablesObligacion) {
 			vencimientosPendientes.addAll(responsableObligacion.vencimientosPendientes(now))
@@ -43,7 +43,7 @@ class Obligacion {
 		return vencimientosPendientes
 	}
 	
-	public List<Vencimiento> vencimientosPendientesPara(Responsable responsable, Date now) {
+	public List<Vencimiento> vencimientosPendientesDeLiquidacion(Responsable responsable, Date now) {
 		def vencimientosPendientes = new ArrayList<Vencimiento>()
 		for (def responsableObligacion : responsablesObligacion) {
 			if (responsableObligacion.esDeResponsable(responsable)) {

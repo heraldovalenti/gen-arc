@@ -27,7 +27,7 @@ class Contrato {
 	public List<Vencimiento> vencimientosPendientesDeLiquidacion(Date now) {
 		def vencimientosPendientes = new ArrayList<Vencimiento>()
 		for(def o : obligaciones) {
-			vencimientosPendientes.addAll( o.vencimientosPendientesPara(now) )
+			vencimientosPendientes.addAll( o.vencimientosPendientesDeLiquidacion(now) )
 		}
 		return vencimientosPendientes
 	}
@@ -38,7 +38,7 @@ class Contrato {
 			return
 		}
 		for(def o : obligaciones) {
-			def vencimientosPendientes = o.vencimientosPendientesPara(responsable, now)
+			def vencimientosPendientes = o.vencimientosPendientesDeLiquidacion(responsable, now)
 			if (!vencimientosPendientes.isEmpty()) {
 				Liquidacion liquidacion = new Liquidacion(responsable: responsable, fecha: now)
 				for (def vencimiento : vencimientosPendientes) {

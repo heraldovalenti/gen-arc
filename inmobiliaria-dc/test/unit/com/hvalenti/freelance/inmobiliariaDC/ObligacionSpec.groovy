@@ -99,14 +99,14 @@ class ObligacionSpec extends Specification {
 		o.addToResponsablesObligacion(ro2)
 		
 		when:
-		def pendientes = o.vencimientosPendientesPara(r1, now)
+		def pendientes = o.vencimientosPendientesDeLiquidacion(r1, now)
 		
 		then:
 		pendientes.size() == 1
 		pendientes[0].vencimiento == fechaVencimiento1
 	}
 	
-	def "cuando se solicitan los vencimientos sin especificar el responsable se deben devolver todos los vencimientos pendientes para la fecha dada"() {
+	def "vencimientos pendientes de liquidacion sin especificar el responsable"() {
 		given:
 		Date now = DateUtil.dateFromString("2015-06-11")
 		Date fechaVencimiento1 = DateUtil.dateFromString("2015-06-01")
@@ -127,7 +127,7 @@ class ObligacionSpec extends Specification {
 		o.addToResponsablesObligacion(ro2)
 		
 		when:
-		def pendientes = o.vencimientosPendientesPara(now)
+		def pendientes = o.vencimientosPendientesDeLiquidacion(now)
 		
 		then:
 		pendientes.size() == 2
