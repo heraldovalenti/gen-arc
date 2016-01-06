@@ -92,6 +92,28 @@ class DateUtilSpec extends Specification {
 		expected <<		[0, 1, 12, 13, 0, 1, 1, 0]
 	}
 	
+	void "relative month difference"(fromString, toString, expected) {
+		given:
+		Date from
+		Date to
+		
+		when:
+		from = new DateTime(fromString).toDate()
+		to = new DateTime(toString).toDate()
+		
+		then:
+		DateUtil.relativeMonthDifference(from, to) == expected
+		
+		where:
+		fromString <<	["2015-01-01", "2015-01-01", "2015-01-01",
+			"2015-01-01", "2015-01-01", "2015-01-10",
+			"2015-01-10", "2015-01-10", "2015-01-31"]
+		toString <<		["2015-01-01", "2015-02-01", "2016-01-01",
+			"2016-02-01", "2015-01-05", "2015-02-20",
+			"2015-02-11", "2015-02-09", "2015-02-01"]
+		expected <<		[0, 1, 12, 13, 0, 1, 1, 1, 1]
+	}
+		
 	void "get month from Date"(fromString, expected) {
 		given:
 		Date from
