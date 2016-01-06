@@ -19,7 +19,7 @@ class Obligacion {
 		return "Obligacion N" + id
 	}
 	
-	public generarVencimientos(Date desde) {
+	public void generarVencimientos(Date desde) {
 		int cantidadDeMeses = calcularCantidadDeMeses(this.frecuencia)
 		for (ResponsableObligacion responsableObligacion : responsablesObligacion) {
 			responsableObligacion.generarVencimiento(desde, cantidadDeMeses)
