@@ -36,7 +36,7 @@ class ResponsableObligacion {
 			proximoVencimiento.vencimiento = vencimiento
 			proximoVencimientoGenerado = proximoVencimiento
 		} else {
-			int monthDifference = DateUtil.relativeMonthDifference(desde, ultimoVencimiento.vencimiento)
+			int monthDifference = DateUtil.relativeMonthDifference(ultimoVencimiento.vencimiento, desde)
 			if (monthDifference >= frecuenciaMeses) {
 				Date fechaProximoVencimiento = DateUtil.dateFromNumbers(
 					DateUtil.getYear(ultimoVencimiento.vencimiento),

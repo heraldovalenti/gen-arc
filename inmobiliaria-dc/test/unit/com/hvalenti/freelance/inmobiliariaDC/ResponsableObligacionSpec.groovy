@@ -106,10 +106,10 @@ class ResponsableObligacionSpec extends Specification {
 		ultimoVencimiento.equals(v1)
 	}
 	
-	def "al generar vencimiento mensual con el vencimiento del mes anterior generado se genera el vencimiento del mes"() {
+	def "al generar vencimiento mensual con el vencimiento del mes anterior generado se genera el vencimiento del mes"(dayOfMonth) {
 		given:
 		int frecuencia = Obligacion.calcularCantidadDeMeses("Mensual")
-		Date fechaVencimientoAnterior = DateUtil.dateFromNumbers(2015, 1, 12)
+		Date fechaVencimientoAnterior = DateUtil.dateFromNumbers(2015, 1, dayOfMonth)
 		ResponsableObligacion responsableObligacion = new ResponsableObligacion(diaVencimiento: 12, monto: 0.0)
 		responsableObligacion.vencimientos = new HashSet()
 		Vencimiento v1 = new Vencimiento(id: 1, vencimiento: fechaVencimientoAnterior, monto: 0.0)
@@ -127,6 +127,9 @@ class ResponsableObligacionSpec extends Specification {
 		Date fechaUltimoVencimiento = ultimoVencimiento.vencimiento
 		DateUtil.getMonthOfYear(fechaUltimoVencimiento) == 2
 		DateUtil.getDayOfMonth(fechaUltimoVencimiento) == 12
+		
+		where:
+		dayOfMonth << [1,12]
 	}
 	
 	def "es de responsable test"() {
