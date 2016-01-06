@@ -20,6 +20,24 @@ class DateUtilSpec extends Specification {
     def cleanup() {
     }
 	
+	void "date from string"(fromString, dayOfMonth, monthOfYear) {
+		given:
+		Date from = DateUtil.dateFromString(fromString)
+		
+		when:
+		int actualDayOfMonth = DateUtil.getDayOfMonth(from)
+		int actualMonthOfYear = DateUtil.getMonthOfYear(from)
+		
+		then:
+		actualDayOfMonth == dayOfMonth
+		actualMonthOfYear == monthOfYear
+		
+		where:
+		fromString << ["2016-01-31", "2015-02-01", "1989-08-01"]
+		dayOfMonth << [31, 1, 1]
+		monthOfYear << [1, 2, 8]
+	}
+	
 	void "add days to date"(daysToAdd, expected) {
 		given:
 		DateTime dt
