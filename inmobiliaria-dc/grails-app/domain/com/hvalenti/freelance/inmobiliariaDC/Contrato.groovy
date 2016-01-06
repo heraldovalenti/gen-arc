@@ -20,6 +20,15 @@ class Contrato {
 		return "Contrato N" + id
 	}
 	
+	public boolean existenVencimientosPendientesDeGenerar(Date now) {
+		for(def o : obligaciones) {
+			if ( o.existenVencimientosPendientesDeGenerar(now) ) {
+				return true
+			}
+		}
+		return false
+	}
+	
 	public boolean existenVencimientosPendientesDeLiquidacion(Date now) {
 		return ( !vencimientosPendientesDeLiquidacion(now).isEmpty() )
 	}

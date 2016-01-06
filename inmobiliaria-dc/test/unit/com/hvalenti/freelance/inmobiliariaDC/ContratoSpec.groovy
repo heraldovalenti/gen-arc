@@ -88,7 +88,7 @@ class ContratoSpec extends Specification {
 		!contratoActivo
 	}
 	
-	def "generar instancias para contrato activo"() {
+	def "generar vencimientos para contrato activo"() {
 		given:
 		Date now = DateUtil.dateFromString("2015-06-01")
 		Date inicio = DateUtil.dateFromString("2015-01-01")
@@ -106,6 +106,58 @@ class ContratoSpec extends Specification {
 		
 		then:
 		obligacion.verify()
+	}
+	
+	def "existen vencimientos pendientes de generar"(vencimientoDayOfMonth, nowDayOfMonth) {
+		given:
+		Date inicio = DateUtil.dateFromString("2015-01-01")
+		Date fin = DateUtil.dateFromString("2016-01-01")
+		Date now = DateUtil.dateFromNumbers(2015, 3, nowDayOfMonth)
+		Vencimiento v1 = new Vencimiento(vencimiento: DateUtil.dateFromNumbers(2015, 2, vencimientoDayOfMonth))
+		ResponsableObligacion responsableObligacion = new ResponsableObligacion(diaVencimiento: 12, monto: 0.0)
+		responsableObligacion.vencimientos = new HashSet()
+		responsableObligacion.vencimientos.add(v1)
+		Obligacion obligacion = new Obligacion(frecuencia: "Mensual")
+		obligacion.responsablesObligacion = new HashSet()
+		obligacion.responsablesObligacion.add(responsableObligacion)
+		
+		Contrato contrato = new Contrato(inicio: inicio, fin: fin)
+		contrato.obligaciones = new HashSet<>()
+		contrato.obligaciones.add(obligacion)
+		
+		when:
+		boolean existenVencimientosPendientesDeGenerar = contrato.existenVencimientosPendientesDeGenerar(now)
+		
+		then:
+		existenVencimientosPendientesDeGenerar
+		
+		where:
+		vencimientoDayOfMonth << [1, 12, 20, 1, 20, 28]
+		nowDayOfMonth << [20, 12, 1, 1, 20, 31]
+	}
+	
+	def "no existen vencimientos pendientes de generar"() {
+		given:
+		Date now = DateUtil.dateFromString("2015-02-12")
+		Date inicio = DateUtil.dateFromString("2015-01-01")
+		Date fin = DateUtil.dateFromString("2016-01-01")
+		Vencimiento v1 = new Vencimiento(vencimiento: DateUtil.dateFromString("2015-02-01"))
+		ResponsableObligacion responsableObligacion = new ResponsableObligacion(diaVencimiento: 12, monto: 0.0)
+		responsableObligacion.vencimientos = new HashSet()
+		responsableObligacion.vencimientos.add(v1)
+		Obligacion obligacion = new Obligacion(frecuencia: "Mensual")
+		obligacion.responsablesObligacion = new HashSet()
+		obligacion.responsablesObligacion.add(responsableObligacion)
+		
+		Contrato contrato = new Contrato(inicio: inicio, fin: fin)
+		contrato.obligaciones = new HashSet<>()
+		contrato.obligaciones.add(obligacion)
+		
+		when:
+		boolean existenVencimientosPendientesDeGenerar = contrato.existenVencimientosPendientesDeGenerar(now)
+		
+		then:
+		!existenVencimientosPendientesDeGenerar
 	}
 	
 	def "generar instancias para contrato vencido"() {

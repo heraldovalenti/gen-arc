@@ -35,6 +35,16 @@ class Obligacion {
 		}
 	}
 	
+	public boolean existenVencimientosPendientesDeGenerar(Date desde) {
+		int cantidadDeMeses = calcularCantidadDeMeses(this.frecuencia)
+		for (def responsableObligacion : responsablesObligacion) {
+			if (responsableObligacion.existeVencimientoPendienteDeGenerar(desde, cantidadDeMeses)) {
+				return true
+			}
+		}
+		return false
+	}
+	
 	public List<Vencimiento> vencimientosPendientesDeLiquidacion(Date now) {
 		def vencimientosPendientes = new ArrayList<Vencimiento>()
 		for (def responsableObligacion : responsablesObligacion) {
