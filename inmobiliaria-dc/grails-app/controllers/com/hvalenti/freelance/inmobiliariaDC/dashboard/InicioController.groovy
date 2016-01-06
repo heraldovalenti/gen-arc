@@ -1,4 +1,4 @@
-package com.hvalenti.freelance.inmobiliariaDC
+package com.hvalenti.freelance.inmobiliariaDC.dashboard
 
 class InicioController {
 	
