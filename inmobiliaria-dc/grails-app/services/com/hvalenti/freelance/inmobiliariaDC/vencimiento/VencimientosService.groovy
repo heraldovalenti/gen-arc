@@ -9,7 +9,7 @@ class VencimientosService {
 	def existenVencimientosPendientes() {
 		Date now = new Date()
 		for (Contrato c : Contrato.list() ) {
-			if (c.existenVencimientosPendientesPara(now)) {
+			if (c.existenVencimientosPendientesDeLiquidacion(now)) {
 				return true
 			}
 		}			
@@ -20,7 +20,7 @@ class VencimientosService {
 		Date now = new Date()
 		Contrato c = Contrato.get(contratoId);
 		if (c) {
-			return c.existenVencimientosPendientesPara(now)
+			return c.existenVencimientosPendientesDeLiquidacion(now)
 		}
 		return false
 	}

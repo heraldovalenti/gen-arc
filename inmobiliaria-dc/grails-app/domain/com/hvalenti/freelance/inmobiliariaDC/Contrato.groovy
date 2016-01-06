@@ -20,11 +20,11 @@ class Contrato {
 		return "Contrato N" + id
 	}
 	
-	public boolean existenVencimientosPendientesPara(Date now) {
-		return ( !vencimientosPendientesPara(now).isEmpty() )
+	public boolean existenVencimientosPendientesDeLiquidacion(Date now) {
+		return ( !vencimientosPendientesDeLiquidacion(now).isEmpty() )
 	}
 	
-	public List<Vencimiento> vencimientosPendientesPara(Date now) {
+	public List<Vencimiento> vencimientosPendientesDeLiquidacion(Date now) {
 		def vencimientosPendientes = new ArrayList<Vencimiento>()
 		for(def o : obligaciones) {
 			vencimientosPendientes.addAll( o.vencimientosPendientesPara(now) )
