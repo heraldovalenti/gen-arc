@@ -6,7 +6,26 @@ import com.hvalenti.freelance.inmobiliariaDC.Contrato
 
 class VencimientosService {
 	
-	def existenVencimientosPendientes() {
+	def existenVencimientosPendientesDeGenerar() {
+		Date now = new Date()
+		for (Contrato c : Contrato.list() ) {
+			if (c.existenVencimientosPendientesDeGenerar(now)) {
+				return true
+			}
+		}
+		return false
+	}
+	
+	def existenVencimientosPendientesDeGenerar(Long contratoId) {
+		Date now = new Date()
+		Contrato c = Contrato.get(contratoId);
+		if (c) {
+			return c.existenVencimientosPendientesDeGenerar(now)
+		}
+		return false
+	}
+	
+	def existenVencimientosPendientesDeLiquidacion() {
 		Date now = new Date()
 		for (Contrato c : Contrato.list() ) {
 			if (c.existenVencimientosPendientesDeLiquidacion(now)) {
@@ -16,7 +35,7 @@ class VencimientosService {
 		return false
 	}
 	
-	def existenVencimientosPendientesParaContrato(Long contratoId) {
+	def existenVencimientosPendientesDeLiquidacion(Long contratoId) {
 		Date now = new Date()
 		Contrato c = Contrato.get(contratoId);
 		if (c) {
