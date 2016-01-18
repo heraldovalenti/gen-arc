@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 class ObligacionesUpdaterJob {
 
 	@Autowired
-	ObligacionesService obligacionesService
+	def obligacionesService
 		
 	static triggers = { 
 		simple name: "obligaciones", startDelay: 10000L, repeatInterval: 60000L //repeatCount: 2, 
