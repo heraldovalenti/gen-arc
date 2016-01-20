@@ -44,6 +44,28 @@ class VencimientosService {
 		return false
 	}
 	
+	def contratosConVencimientosPendientesDeGenerar() {
+		Date now = new Date()
+		def contratos = new ArrayList<Contrato>()
+		for (Contrato c : Contrato.list() ) {
+			if (c.existenVencimientosPendientesDeGenerar(now)) {
+				contratos.add(c) 
+			}
+		}
+		return contratos
+	}
+	
+	def contratosConVencimientosPendientesDeLiquidacion() {
+		Date now = new Date()
+		def contratos = new ArrayList<Contrato>()
+		for (Contrato c : Contrato.list() ) {
+			if (c.existenVencimientosPendientesDeLiquidacion(now)) {
+				contratos.add(c) 
+			}
+		}
+		return contratos
+	}
+	
 	@Transactional
 	def generarVencimientos() {
 		Date now = new Date()
