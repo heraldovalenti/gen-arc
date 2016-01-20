@@ -2,12 +2,12 @@ package com.hvalenti.freelance.inmobiliariaDC.dashboard
 
 class InicioController {
 	
-	def contratoService
+	def vencimientosService
 	
 	def index() {
-		def proximos = contratoService.contratosConObligacionesProximas()
-		def vencidos = contratoService.contratosConObligacionesVencidas()
-		render(view: "/index", model: [vencidos: vencidos, proximos: proximos])
+		def pendientesGeneracion = vencimientosService.existenVencimientosPendientesDeGenerar()
+		def pendientesLiquidacion = vencimientosService.existenVencimientosPendientesDeLiquidacion()
+		render(view: "/index", model: [pendientesGeneracion: pendientesGeneracion, pendientesLiquidacion: pendientesLiquidacion])
 	}
 
 }

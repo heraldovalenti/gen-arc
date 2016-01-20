@@ -94,38 +94,31 @@
 				<li><g:link controller="vencimiento">Vencimientos</g:link></li>
 				<li><g:link controller="liquidacion">Liquidaciones</g:link></li>
 			</ul>
-			<h1>Acceso</h1>
-			<ul>
-				<li><g:link controller="acceso" action="logout">Salir</g:link></li>
-			</ul>
 		</div>
 		<div id="page-body" role="main">
-			<h1>Accesos rápidos</h1>
 			
+			<h1>Vencimientos</h1>
 			<div id="controller-list" role="navigation">
-				<h2>Contratos con obligaciones a vencer</h2>
-				<ul>
-				<g:if test="${ proximos.isEmpty() }">
-					<li>No hay obligaciones proximas a vencer</li>		
+				<g:if test="${ pendientesGeneracion }">
+					<h2>Existen vencimientos pendientes de generar</h2>
+					<g:link controller="vencimientos" action="pendientesGenerar">Ir a generar vencimientos pendientes</g:link>
 				</g:if>
 				<g:else>
-					<g:each in="${ proximos }" var="contrato">
-						<li><g:link controller="contrato" action="show" id="${ contrato.id }">Contrato N${ contrato.id }</g:link></li>
-					</g:each>
+					<h2>No existen vencimientos pendientes de generar</h2>
 				</g:else>
-				</ul>
 			</div>
 			
-			<g:if test="${ !vencidos.isEmpty() }">
-				<div id="controller-list" role="navigation">
-					<h2>Contratos con obligaciones vencidas</h2>
-					<ul>		
-						<g:each in="${ vencidos }" var="contrato">
-							<li><g:link controller="contrato" action="show" id="${ contrato.id }">Contrato N${ contrato.id }</g:link></li>
-						</g:each>
-					</ul>
-				</div>
-			</g:if>
+			<h1>Liquidaciones</h1>
+			<div id="controller-list" role="navigation">
+				<g:if test="${ pendientesGeneracion }">
+					<h2>Existen liquidaciones pendientes de generar</h2>
+					<g:link controller="vencimientos" action="pendientesLiquidacion">Ir a generar liquidaciones pendientes</g:link>
+				</g:if>
+				<g:else>
+					<h2>No existen liquidaciones pendientes de generar</h2>
+				</g:else>
+			</div>
+			
 		</div>
 	</body>
 </html>
