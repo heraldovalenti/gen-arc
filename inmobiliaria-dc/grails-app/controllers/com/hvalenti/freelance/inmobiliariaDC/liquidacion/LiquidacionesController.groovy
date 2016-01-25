@@ -9,6 +9,7 @@ class LiquidacionesController {
 	
 	def pendientesLiquidacion() {
 		def contratos = liquidacionesService.contratosConVencimientosPendientesDeLiquidacion()
+		render(view: "generarLiquidaciones", model: [contratoInstanceList: contratos])
 	}
 	
 	

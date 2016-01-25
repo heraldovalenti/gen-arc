@@ -9,7 +9,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="generarVencimientos">Generar todos</g:link></li>
+				<li><g:link class="create" action="generarLiquidaciones">Generar todos</g:link></li>
 			</ul>
 		</div>
 		<div class="content scaffold-list">
