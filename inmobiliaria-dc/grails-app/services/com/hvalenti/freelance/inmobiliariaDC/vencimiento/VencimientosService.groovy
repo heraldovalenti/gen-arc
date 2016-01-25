@@ -74,4 +74,11 @@ class VencimientosService {
 			c.generarVencimientos(now)
 		}
 	}
+	
+	@Transactional
+	def generarVencimientos(Long contratoId) {
+		Contrato c = Contrato.get(contratoId)
+		Date now = new Date()
+		c.generarVencimientos(now)
+	}
 }

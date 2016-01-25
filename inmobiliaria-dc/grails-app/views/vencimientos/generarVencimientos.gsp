@@ -3,18 +3,22 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'contrato.label', default: 'Contrato')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<title>Generar vencimientos</title>
 	</head>
 	<body>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create">Generar todos</g:link></li>
+				<li><g:link class="create" action="generarVencimientos">Generar todos</g:link></li>
 			</ul>
 		</div>
-		<div id="list-contrato" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+		<div class="content scaffold-list">
+			<h1>Contratos con vencimientos pendientes de generar</h1>
+			
+			<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+			</g:if>
+			
 			<table>
 			<thead>
 					<tr>
@@ -34,7 +38,7 @@
 					
 						<td>${fieldValue(bean: contratoInstance, field: "inmueble")}</td>
 					
-						<td><g:link action="generar" id="${contratoInstance.id}">Generar</g:link></td>
+						<td><g:link action="generarVencimientosContrato" id="${contratoInstance.id}">Generar</g:link></td>
 					
 					</tr>
 				</g:each>
