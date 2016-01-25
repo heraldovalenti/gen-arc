@@ -17,7 +17,7 @@ class Contrato {
     }
 	
 	public String toString() {
-		return "Contrato N" + id
+		return "Contrato Nro " + id
 	}
 	
 	public boolean existenVencimientosPendientesDeGenerar(Date now) {
