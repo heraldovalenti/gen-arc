@@ -12,5 +12,28 @@ class LiquidacionesController {
 		render(view: "generarLiquidaciones", model: [contratoInstanceList: contratos])
 	}
 	
+	def generarLiquidacionLocador() {
+		
+	}
+	
+	def generarLiquidacionLocadorParaContrato(Long id) {
+	
+	}
+	
+	def generarLiquidacionLocatario() {
+	
+	}
+	
+	def generarLiquidacionLocatarioParaContrato(Long id) {
+	
+	}
+	
+	def generarLiquidacionInmobiliaria() {
+	
+	}
+	
+	def generarLiquidacionInmobiliariaParaContrato(Long) {
+	
+	}
 	
 }
