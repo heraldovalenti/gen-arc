@@ -23,4 +23,8 @@ class Liquidacion {
 		}
 		this.total = total
 	}
+	
+	public boolean tieneDetalles() {
+		return ( detalles && !detalles.isEmpty() )
+	}
 }

@@ -45,4 +45,39 @@ class LiquidacionSpec extends Specification {
 		l.errors['detalles'].code == 'notEmpty'
 	}
 	
+	def "liquidacion no tiene detalles"() {
+		given:
+		Liquidacion l1 = new Liquidacion()
+		
+		when:
+		boolean tieneDetalles = l1.tieneDetalles()
+		
+		then:
+		!tieneDetalles
+	}
+	
+	def "liquidacion no tiene detalles para detalles vacio"() {
+		given:
+		Liquidacion l1 = new Liquidacion(detalles: new HashSet<DetalleLiquidacion>())
+		
+		when:
+		boolean tieneDetalles = l1.tieneDetalles()
+		
+		then:
+		!tieneDetalles
+	}
+	
+	def "liquidacion tiene detalles"() {
+		given:
+		Set<DetalleLiquidacion> detalles = new HashSet<DetalleLiquidacion>()
+		detalles.add(new DetalleLiquidacion())
+		Liquidacion l1 = new Liquidacion(detalles: detalles)
+		
+		when:
+		boolean tieneDetalles = l1.tieneDetalles()
+		
+		then:
+		tieneDetalles
+	}
+	
 }
