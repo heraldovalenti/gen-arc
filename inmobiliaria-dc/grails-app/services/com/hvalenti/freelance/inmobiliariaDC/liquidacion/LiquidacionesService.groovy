@@ -1,6 +1,7 @@
 package com.hvalenti.freelance.inmobiliariaDC.liquidacion
 
 import com.hvalenti.freelance.inmobiliariaDC.Contrato
+import com.hvalenti.freelance.inmobiliariaDC.Responsable
 
 class LiquidacionesService {
 	
@@ -33,6 +34,14 @@ class LiquidacionesService {
 			}
 		}
 		return contratos
+	}
+	
+	def generarLiquidacion(Responsable responsable) {
+		
+	}
+	
+	def generarLiquidacion(Responsable responsable, Long id) {
+		
 	}
 
 }
