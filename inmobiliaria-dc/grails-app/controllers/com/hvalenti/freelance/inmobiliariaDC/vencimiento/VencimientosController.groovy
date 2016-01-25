@@ -9,10 +9,6 @@ class VencimientosController {
 		render(view: "generarVencimientos", model: [contratoInstanceList: contratos])
 	}
 	
-	def pendientesLiquidacion() {
-		def contratos = vencimientosService.contratosConVencimientosPendientesDeLiquidacion()
-	}
-	
 	def generarVencimientos() {
 		vencimientosService.generarVencimientos()
 		flash.message = message(code: 'com.hvalenti.freelance.inmobiliariaDC.Contrato.vencimientosGenerados')

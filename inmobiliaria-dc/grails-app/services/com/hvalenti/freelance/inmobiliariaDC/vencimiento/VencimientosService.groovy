@@ -25,41 +25,11 @@ class VencimientosService {
 		return false
 	}
 	
-	def existenVencimientosPendientesDeLiquidacion() {
-		Date now = new Date()
-		for (Contrato c : Contrato.list() ) {
-			if (c.existenVencimientosPendientesDeLiquidacion(now)) {
-				return true
-			}
-		}			
-		return false
-	}
-	
-	def existenVencimientosPendientesDeLiquidacion(Long contratoId) {
-		Date now = new Date()
-		Contrato c = Contrato.get(contratoId);
-		if (c) {
-			return c.existenVencimientosPendientesDeLiquidacion(now)
-		}
-		return false
-	}
-	
 	def contratosConVencimientosPendientesDeGenerar() {
 		Date now = new Date()
 		def contratos = new ArrayList<Contrato>()
 		for (Contrato c : Contrato.list() ) {
 			if (c.existenVencimientosPendientesDeGenerar(now)) {
-				contratos.add(c) 
-			}
-		}
-		return contratos
-	}
-	
-	def contratosConVencimientosPendientesDeLiquidacion() {
-		Date now = new Date()
-		def contratos = new ArrayList<Contrato>()
-		for (Contrato c : Contrato.list() ) {
-			if (c.existenVencimientosPendientesDeLiquidacion(now)) {
 				contratos.add(c) 
 			}
 		}
