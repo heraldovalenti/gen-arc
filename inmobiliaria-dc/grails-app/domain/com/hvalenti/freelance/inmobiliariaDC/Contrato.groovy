@@ -41,23 +41,27 @@ class Contrato {
 		return vencimientosPendientes
 	}
 	
-	public void generarLiquidacion(Responsable responsable, Date now) {
+	public Liquidacion generarLiquidacion(Responsable responsable, Date now) {
 		// return if now is null or contrato is not active
 		if (!responsable || !now || !this.esContratoActivo(now)) {
-			return
+			return null
 		}
+		Liquidacion liquidacion = new Liquidacion(responsable: responsable, fecha: now)
 		for(def o : obligaciones) {
 			def vencimientosPendientes = o.vencimientosPendientesDeLiquidacion(responsable, now)
 			if (!vencimientosPendientes.isEmpty()) {
-				Liquidacion liquidacion = new Liquidacion(responsable: responsable, fecha: now)
 				for (def vencimiento : vencimientosPendientes) {
 					def detalleLiquidacion = DetalleLiquidacion.generarDetalleDesdeVencimiento(vencimiento)
 					liquidacion.addToDetalles(detalleLiquidacion)
 				}
-				liquidacion.calcularTotal()
-				addToLiquidaciones(liquidacion)
 			}
 		}
+		if ( liquidacion.tieneDetalles() ) {
+			liquidacion.calcularTotal()
+			addToLiquidaciones(liquidacion)
+			return liquidacion
+		}
+		return null
 	}
 	
 	public boolean esContratoActivo(Date now) {

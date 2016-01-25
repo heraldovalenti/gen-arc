@@ -192,9 +192,10 @@ class ContratoSpec extends Specification {
 		c.addToLiquidaciones(liquidacionMock.createMock())
 		
 		when:
-		c.generarLiquidacion(new Responsable(), now)
+		Liquidacion l1 = c.generarLiquidacion(new Responsable(), now)
 		
 		then:
+		!l1
 		c.liquidaciones.size() == 1
 	}
 	
@@ -213,12 +214,14 @@ class ContratoSpec extends Specification {
 		c.addToObligaciones(o1)
 		
 		when:
-		c.generarLiquidacion(r1, now)
+		Liquidacion l1 = c.generarLiquidacion(r1, now)
 		
 		then:
+		l1
 		c.liquidaciones
 		c.liquidaciones.size() == 1
 		c.liquidaciones[0].total == 10.0
+		l1.total == 10.0
 	}
 	
 	def "se genera liquidacion con 2 vencimientos pendientes del responsable"(m11, m12, m21, total) {
@@ -226,7 +229,7 @@ class ContratoSpec extends Specification {
 		Date now = DateUtil.dateFromString("2015-06-01")
 		Date inicio = DateUtil.dateFromString("2014-01-01")
 		Date fin = DateUtil.dateFromString("2015-12-31")
-		Date fechaVencimiento =DateUtil.dateFromString("2015-06-01") 
+		Date fechaVencimiento = DateUtil.dateFromString("2015-06-01") 
 		Contrato c = new Contrato(inicio: inicio, fin: fin)
 		Obligacion o1 = new Obligacion()
 		Responsable r1 = new Responsable(descripcion: "Locatario")
@@ -244,12 +247,57 @@ class ContratoSpec extends Specification {
 		c.addToObligaciones(o1)
 		
 		when:
-		c.generarLiquidacion(r1, now)
+		Liquidacion l1 = c.generarLiquidacion(r1, now)
 		
 		then:
+		l1
 		c.liquidaciones
 		c.liquidaciones.size() == 1
 		c.liquidaciones[0].total == total
+		l1.total == total
+		
+		where:
+		m11 << [5.0, 6.0, 7.0]
+		m12 << [5.5, 6.5, 7.5]
+		m21 << [10.0, 20.0, 30.0]
+		total << [10.5, 12.5, 14.5]
+	}
+	
+	def "se genera liquidacion con 2 vencimientos pendientes del responsable de obligaciones distintas"(m11, m12, m21, total) {
+		given:
+		Date now = DateUtil.dateFromString("2015-06-01")
+		Date inicio = DateUtil.dateFromString("2014-01-01")
+		Date fin = DateUtil.dateFromString("2015-12-31")
+		Date fechaVencimiento = DateUtil.dateFromString("2015-06-01")
+		Contrato c = new Contrato(inicio: inicio, fin: fin)
+		Obligacion o1 = new Obligacion()
+		Obligacion o2 = new Obligacion()
+		Responsable r1 = new Responsable(descripcion: "Locatario")
+		Responsable r2 = new Responsable(descripcion: "Locador")
+		ResponsableObligacion ro1 = new ResponsableObligacion(responsable: r1)
+		ResponsableObligacion ro2 = new ResponsableObligacion(responsable: r2)
+		ResponsableObligacion ro3 = new ResponsableObligacion(responsable: r1)
+		Vencimiento v1 = new Vencimiento(vencimiento: now, monto: m11)
+		Vencimiento v2 = new Vencimiento(vencimiento: now, monto: m12)
+		Vencimiento v3 = new Vencimiento(vencimiento: now, monto: m21)
+		ro1.addToVencimientos(v1)
+		ro3.addToVencimientos(v2)
+		ro2.addToVencimientos(v3)
+		o1.addToResponsablesObligacion(ro1)
+		o1.addToResponsablesObligacion(ro2)
+		o2.addToResponsablesObligacion(ro3)
+		c.addToObligaciones(o1)
+		c.addToObligaciones(o2)
+		
+		when:
+		Liquidacion l1 = c.generarLiquidacion(r1, now)
+		
+		then:
+		l1
+		c.liquidaciones
+		c.liquidaciones.size() == 1
+		c.liquidaciones[0].total == total
+		l1.total == total
 		
 		where:
 		m11 << [5.0, 6.0, 7.0]
