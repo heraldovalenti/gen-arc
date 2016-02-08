@@ -44,4 +44,52 @@ class ResponsableServiceSpec extends Specification {
 		descripcion << 			["Inmobiliaria", "Locador", "Locatario"]
     }
 	
+	def "get responsables key test"(key) {
+		given:
+		
+		when:
+		def keys = service.responsablesKeys()
+		
+		then:
+		keys.contains(key)
+		
+		where:
+		key << ["inmobiliaria", "locador", "locatario"]
+	}
+	
+	def "get responsables values test"(value) {
+		given:
+		
+		when:
+		def values = service.responsablesValues()
+		
+		then:
+		values.contains(value)
+		
+		where:
+		value << ["Inmobiliaria", "Locador", "Locatario"]
+	}
+	
+	def "get responsables values order"() {
+		given:
+		def expected = ["Inmobiliaria", "Locador", "Locatario"]
+		
+		when:
+		def values = service.responsablesValues()
+		
+		then:
+		expected == values
+	}
+	
+	def "get responsables keys order"() {
+		given:
+		def expected = ["inmobiliaria", "locador", "locatario"]
+		
+		when:
+		def keys = service.responsablesKeys()
+		
+		then:
+		expected == keys
+	}
+	
 }

@@ -1,7 +1,5 @@
 package com.hvalenti.freelance.inmobiliariaDC
 
-import grails.transaction.Transactional
-
 class ResponsableService {
 	
 	def responsables = [
@@ -14,4 +12,16 @@ class ResponsableService {
 		String responsableString = responsables[responsable]
 		return Responsable.findByDescripcion(responsableString)
     }
+	
+	def responsablesKeys() {
+		return responsables.keySet().sort { a, b ->
+			return a.compareTo(b)
+		}
+	}
+	
+	def responsablesValues() {
+		return responsables.values().sort { a, b ->
+			return a.compareTo(b)
+		}
+	}
 }
