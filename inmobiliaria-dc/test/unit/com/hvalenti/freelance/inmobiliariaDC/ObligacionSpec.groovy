@@ -1,7 +1,6 @@
 
 package com.hvalenti.freelance.inmobiliariaDC
 
-import grails.test.mixin.*
 import grails.test.mixin.domain.DomainClassUnitTestMixin
 import spock.lang.Specification
 
