@@ -1,39 +1,30 @@
 package com.hvalenti.freelance.inmobiliariaDC.liquidacion
 
-import com.hvalenti.freelance.inmobiliariaDC.Vencimiento
-import com.hvalenti.freelance.inmobiliariaDC.Liquidacion
+import com.hvalenti.freelance.inmobiliariaDC.Contrato
 
 class LiquidacionesController {
 
 	def liquidacionesService
+	def responsableService
 	
 	def pendientesLiquidacion() {
 		def contratos = liquidacionesService.contratosConVencimientosPendientesDeLiquidacion()
 		render(view: "generarLiquidaciones", model: [contratoInstanceList: contratos])
 	}
 	
-	def generarLiquidacionLocador() {
-		
+	def generarLiquidaciones(String responsable) {
+		def r = responsableService.responsableFromString(responsable)
+		liquidacionesService.generarLiquidacion(r)
+		flash.message = message(code: 'com.hvalenti.freelance.inmobiliariaDC.Contrato.liquidacionGenerada')
+		redirect(action: "pendientesLiquidacion")
 	}
 	
-	def generarLiquidacionLocadorParaContrato(Long id) {
-	
-	}
-	
-	def generarLiquidacionLocatario() {
-	
-	}
-	
-	def generarLiquidacionLocatarioParaContrato(Long id) {
-	
-	}
-	
-	def generarLiquidacionInmobiliaria() {
-	
-	}
-	
-	def generarLiquidacionInmobiliariaParaContrato(Long) {
-	
+	def generarLiquidacionesParaContrato(String responsable, Long idContrato) {
+		def r = responsableService.responsableFromString(responsable)
+		def c = Contrato.get(idContrato)
+		liquidacionesService.generarLiquidacion(r, c)
+		flash.message = message(code: 'com.hvalenti.freelance.inmobiliariaDC.Contrato.liquidacionGenerada')
+		redirect(action: "pendientesLiquidacion")
 	}
 	
 }

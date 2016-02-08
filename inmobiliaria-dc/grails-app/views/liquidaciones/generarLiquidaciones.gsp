@@ -3,13 +3,21 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<title>Generar vencimientos</title>
+		<title>Generar liquidaciones</title>
 	</head>
 	<body>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="generarLiquidaciones">Generar todos</g:link></li>
+				<li>
+					Generar liquidacion para:
+					<g:link action="generarLiquidaciones"
+						params="[responsable: 'inmobiliaria']">Inmobiliaria</g:link>
+					<g:link action="generarLiquidaciones" 
+						params="[responsable: 'locador']">Locatario</g:link>
+					<g:link action="generarLiquidaciones" 
+						params="[responsable: 'locatario']">Locador</g:link>
+				</li>
 			</ul>
 		</div>
 		<div class="content scaffold-list">
@@ -20,7 +28,7 @@
 			</g:if>
 			
 			<table>
-			<thead>
+				<thead>
 					<tr>
 						<th><g:message code="contrato.id.label" default="Nro contrato" /></th>
 					
@@ -31,15 +39,23 @@
 					</tr>
 				</thead>
 				<tbody>
-				<g:each in="${contratoInstanceList}" status="i" var="contratoInstance">
+				<g:each in="${contratoInstanceList}" status="i" var="contrato">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link controller="contrato" action="show" id="${contratoInstance.id}">${contratoInstance}</g:link></td>
+						<td><g:link controller="contrato" action="show" id="${contrato.id}">${contrato}</g:link></td>
 					
-						<td>${fieldValue(bean: contratoInstance, field: "inmueble")}</td>
+						<td>${fieldValue(bean: contrato, field: "inmueble")}</td>
 					
-						<td><g:link action="generarVencimientosContrato" id="${contratoInstance.id}">Generar</g:link></td>
-					
+						<td>
+							Generar liquidacion para:
+							<g:link action="generarLiquidacionesParaContrato"
+								params="[idContrato: contrato.id, responsable: 'inmobiliaria']">Inmobiliaria</g:link>
+							<g:link action="generarLiquidacionesParaContrato" 
+								params="[idContrato: contrato.id, responsable: 'locador']">Locatario</g:link>
+							<g:link action="generarLiquidacionesParaContrato" 
+								params="[idContrato: contrato.id, responsable: 'locatario']">Locador</g:link>
+						</td>
+						
 					</tr>
 				</g:each>
 				</tbody>

@@ -37,11 +37,14 @@ class LiquidacionesService {
 	}
 	
 	def generarLiquidacion(Responsable responsable) {
-		
+		for (Contrato c : Contrato.list() ) {
+			generarLiquidacion(responsable, c)
+		}
 	}
 	
-	def generarLiquidacion(Responsable responsable, Long id) {
-		
+	def generarLiquidacion(Responsable responsable, Contrato contrato) {
+		Date now = new Date()
+		contrato.generarLiquidacion(responsable, now)
 	}
 
 }
