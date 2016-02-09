@@ -17,8 +17,8 @@ class VencimientosController {
 		redirect(action: "pendientesGeneracion")
 	}
 	
-	def generarVencimientosContrato(Long id) {
-		vencimientosService.generarVencimientos(id)
+	def generarVencimientosContrato(Long idContrato) {
+		vencimientosService.generarVencimientos(idContrato)
 		flash.message = message(code: 'com.hvalenti.freelance.inmobiliariaDC.Contrato.vencimientosGenerados')
 		redirect(action: "pendientesGeneracion")
 	}

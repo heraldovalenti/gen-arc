@@ -31,14 +31,14 @@
 					</tr>
 				</thead>
 				<tbody>
-				<g:each in="${contratoInstanceList}" status="i" var="contratoInstance">
+				<g:each in="${contratoInstanceList}" status="i" var="contrato">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link controller="contrato" action="show" id="${contratoInstance.id}">${contratoInstance}</g:link></td>
+						<td><g:link controller="contrato" action="show" id="${contrato.id}">${contrato}</g:link></td>
 					
-						<td>${fieldValue(bean: contratoInstance, field: "inmueble")}</td>
+						<td>${fieldValue(bean: contrato, field: "inmueble")}</td>
 					
-						<td><g:link action="generarVencimientosContrato" id="${contratoInstance.id}">Generar</g:link></td>
+						<td><g:link action="generarVencimientosContrato" params="[idContrato: contrato.id]">Generar</g:link></td>
 					
 					</tr>
 				</g:each>

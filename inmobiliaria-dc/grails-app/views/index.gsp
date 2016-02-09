@@ -101,7 +101,7 @@
 			<div id="controller-list" role="navigation">
 				<g:if test="${ pendientesGeneracion }">
 					<h2>Existen vencimientos pendientes de generar</h2>
-					<g:link controller="vencimientos" action="pendientesGenerar">Ir a generar vencimientos pendientes</g:link>
+					<g:link controller="vencimientos" action="pendientesGeneracion">Ir a generar vencimientos pendientes</g:link>
 				</g:if>
 				<g:else>
 					<h2>No existen vencimientos pendientes de generar</h2>
