@@ -19,7 +19,7 @@ class ResponsableObligacion {
 	public void generarVencimiento(Date desde, int frecuenciaMeses) {
 		Vencimiento proximoVencimientoGenerado = obtenerVencimientoGenerado(desde, frecuenciaMeses)
 		if (proximoVencimientoGenerado) {
-			this.vencimientos.add(proximoVencimientoGenerado)
+			this.addToVencimientos(proximoVencimientoGenerado)
 		}
 	}
 	
