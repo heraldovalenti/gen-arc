@@ -15,7 +15,10 @@ class Inmueble {
 	public String toString() {
 		StringBuilder result = new StringBuilder("")
 		result.append(tipo)
-		if (domicilio) result.append(domicilio.toString())
+		if (domicilio) {
+			result.append(" - ")
+			result.append(domicilio.toString())
+		}
 		return result.toString()
 	}
 }
