@@ -2,6 +2,8 @@ package com.hvalenti.freelance.inmobiliariaDC.vencimiento
 
 class VencimientosController {
 	
+	static defaultAction = "pendientesGeneracion"
+	
 	def vencimientosService
 	
 	def pendientesGeneracion() {

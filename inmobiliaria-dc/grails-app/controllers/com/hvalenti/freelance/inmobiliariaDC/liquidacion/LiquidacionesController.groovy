@@ -4,6 +4,8 @@ import com.hvalenti.freelance.inmobiliariaDC.Contrato
 
 class LiquidacionesController {
 
+	static defaultAction = "pendientesLiquidacion"
+	
 	def liquidacionesService
 	def responsableService
 	
