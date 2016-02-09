@@ -7,6 +7,10 @@ class Responsable {
 	static constraints = {
 		descripcion inList: ["Locador", "Locatario", "Inmobiliaria"], unique: true
 	}
+	
+	public String toString() {
+		return descripcion
+	}
 
 	@Override
 	public int hashCode() {
