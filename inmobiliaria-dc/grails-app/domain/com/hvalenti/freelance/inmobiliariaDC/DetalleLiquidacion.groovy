@@ -19,6 +19,7 @@ class DetalleLiquidacion {
 		DetalleLiquidacion detalle = new DetalleLiquidacion()
 		detalle.vencimiento = vencimiento
 		detalle.monto = vencimiento.monto
+		vencimiento.liquidacion = detalle
 		return detalle
 	}
 }
