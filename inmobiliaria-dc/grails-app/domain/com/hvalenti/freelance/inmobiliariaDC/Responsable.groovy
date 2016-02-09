@@ -5,7 +5,7 @@ class Responsable {
 	String descripcion
 		
 	static constraints = {
-		descripcion inLIst: ["Locador", "Locatario", "Inmobiliaria"]
+		descripcion inList: ["Locador", "Locatario", "Inmobiliaria"], unique: true
 	}
 
 	@Override
