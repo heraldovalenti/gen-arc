@@ -11,10 +11,16 @@
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li>
 					Generar liquidacion para:
+				</li>
+				<li>
 					<g:link action="generarLiquidaciones"
 						params="[responsable: 'inmobiliaria']">Inmobiliaria</g:link>
+				</li>
+				<li>
 					<g:link action="generarLiquidaciones" 
 						params="[responsable: 'locador']">Locatario</g:link>
+				</li>
+				<li>
 					<g:link action="generarLiquidaciones" 
 						params="[responsable: 'locatario']">Locador</g:link>
 				</li>
