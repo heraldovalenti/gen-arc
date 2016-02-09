@@ -110,7 +110,7 @@
 			
 			<h1>Liquidaciones</h1>
 			<div id="controller-list" role="navigation">
-				<g:if test="${ pendientesGeneracion }">
+				<g:if test="${ pendientesLiquidacion }">
 					<h2>Existen liquidaciones pendientes de generar</h2>
 					<g:link controller="liquidaciones" action="pendientesLiquidacion">Ir a generar liquidaciones pendientes</g:link>
 				</g:if>
