@@ -15,6 +15,8 @@ class DetalleLiquidacionSpec extends Specification {
 		detalle != null
 		detalle.monto == 10.0
 		detalle.vencimiento.equals(v1)
+		v1.liquidacion != null
+		v1.liquidacion.equals(detalle)
 	}
 	
 	def "generar liquidacion desde vencimiento vacio"() {
