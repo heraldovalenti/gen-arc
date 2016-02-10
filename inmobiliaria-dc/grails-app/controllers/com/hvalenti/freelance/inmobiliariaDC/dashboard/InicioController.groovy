@@ -6,9 +6,13 @@ class InicioController {
 	def liquidacionesService
 	
 	def index() {
+		
+	}
+	
+	def pendientes() {
 		def pendientesGeneracion = vencimientosService.existenVencimientosPendientesDeGenerar()
 		def pendientesLiquidacion = liquidacionesService.existenVencimientosPendientesDeLiquidacion()
-		render(view: "/index", model: [pendientesGeneracion: pendientesGeneracion, pendientesLiquidacion: pendientesLiquidacion])
+		render(view: "/pendientes", model: [pendientesGeneracion: pendientesGeneracion, pendientesLiquidacion: pendientesLiquidacion])
 	}
 
 }
