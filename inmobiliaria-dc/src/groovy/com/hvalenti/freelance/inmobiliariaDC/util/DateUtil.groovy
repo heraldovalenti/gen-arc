@@ -1,6 +1,7 @@
 package com.hvalenti.freelance.inmobiliariaDC.util
 
 import org.joda.time.DateTime
+import org.joda.time.DateTimeField;
 import org.joda.time.LocalDate
 import org.joda.time.Months
 import org.joda.time.format.DateTimeFormat
@@ -76,6 +77,13 @@ class DateUtil {
 		DateTime dt = new DateTime(date)
 		DateTimeFormatter fmt = DateTimeFormat.forPattern(pattern);
 		return dt.toString(fmt);
+	}
+	
+	public static Date lastDayOfMonth(Date when) {
+		DateTime now = new DateTime(when)
+		now = now.withMonthOfYear(now.monthOfYear + 1)
+		now = now.withDayOfMonth(1)
+		return now.minusDays(1).toDate()
 	}
 
 }

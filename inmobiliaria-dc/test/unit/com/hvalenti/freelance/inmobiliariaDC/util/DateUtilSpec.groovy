@@ -185,4 +185,20 @@ class DateUtilSpec extends Specification {
 		then:
 		"22/08/1989".equals(dateString)
 	}
+	
+	def "lastDayOfCurrentMonth tests"(when, day) {
+		given:
+		Date d = new DateTime(when).toDate()
+		
+		when:
+		Date result = DateUtil.lastDayOfMonth(d)
+		DateTime dt = new DateTime(result)
+		
+		then:
+		dt.dayOfMonth == day
+		
+		where:
+		when << ["1989-08-22", "1991-04-01","2016-02-13","2015-02-13"]
+		day <<	[31,30,29,28]
+	}
 }
