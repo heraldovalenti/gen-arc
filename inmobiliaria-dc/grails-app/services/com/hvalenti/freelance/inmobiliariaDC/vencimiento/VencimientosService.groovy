@@ -39,6 +39,11 @@ class VencimientosService {
 	@Transactional
 	def generarVencimientos() {
 		Date now = new Date()
+		generarVencimientos(now)
+	}
+	
+	@Transactional
+	def generarVencimientos(Date now) {
 		List<Contrato> contratoList = Contrato.list()
 		for (Contrato c : contratoList) {
 			c.generarVencimientos(now)
@@ -47,8 +52,13 @@ class VencimientosService {
 	
 	@Transactional
 	def generarVencimientos(Long contratoId) {
-		Contrato c = Contrato.get(contratoId)
 		Date now = new Date()
+		generarVencimientos(now,contratoId)
+	}
+	
+	@Transactional
+	def generarVencimientos(Date now, Long contratoId) {
+		Contrato c = Contrato.get(contratoId)
 		c.generarVencimientos(now)
 	}
 }
