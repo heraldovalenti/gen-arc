@@ -9,7 +9,7 @@ class UrlMappings {
             }
         }
 
-		"/"(controller: "inicio", action: "index")
+		"/"(controller: "grupoLiquidacion", action: "index")
 		//"/"(uri: "home.html")
         "500"(view: '/error')
 	}
