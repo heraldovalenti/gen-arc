@@ -4,19 +4,20 @@ import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 
 class Obligacion {
 	
-	String frecuencia
 	String concepto
+	String frecuencia
 	
 	static belongsTo = [contrato: Contrato]
 	
 	static hasMany = [responsablesObligacion: ResponsableObligacion]
 	
     static constraints = {
+		concepto blank: false, nullable: false, maxSize: 250, minSize: 5
 		frecuencia inList: ["Mensual","Bimestral","Trimestral","Cuatrimestral","Semestral","Anual"]
     }
 	
 	public String toString() {
-		return "Obligacion N" + id
+		return "Obligacion N" + id + ": " + concepto + " (" + frecuencia + ")"
 	}
 	
 	public void generarVencimientos(Date desde) {
@@ -57,7 +58,8 @@ class Obligacion {
 		def vencimientosPendientes = new ArrayList<Vencimiento>()
 		for (def responsableObligacion : responsablesObligacion) {
 			if (responsableObligacion.esDeResponsable(responsable)) {
-				vencimientosPendientes.addAll(responsableObligacion.vencimientosPendientesDeLiquidacion(now))
+				def vencimientos = responsableObligacion.vencimientosPendientesDeLiquidacion(now)
+				vencimientosPendientes.addAll(vencimientos)
 			}
 		}
 		return vencimientosPendientes
