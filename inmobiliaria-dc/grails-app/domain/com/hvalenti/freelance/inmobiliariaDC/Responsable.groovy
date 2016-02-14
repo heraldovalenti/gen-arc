@@ -26,7 +26,7 @@ class Responsable {
 		if (obj == null){
 			return false
 		}
-		if (getClass() != obj.getClass()) {
+		if (!obj.instanceOf(Responsable)) {
 			return false
 		}
 		Responsable other = (Responsable) obj;
