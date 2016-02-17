@@ -1,10 +1,10 @@
 package com.hvalenti.freelance.inmobiliariaDC.vencimiento
 
-import org.springframework.transaction.annotation.Transactional
-
 import com.hvalenti.freelance.inmobiliariaDC.Contrato
 
 class VencimientosService {
+	
+	static transactional = true
 	
 	def existenVencimientosPendientesDeGenerar() {
 		Date now = new Date()
@@ -36,13 +36,11 @@ class VencimientosService {
 		return contratos
 	}
 	
-	@Transactional
 	def generarVencimientos() {
 		Date now = new Date()
 		generarVencimientos(now)
 	}
 	
-	@Transactional
 	def generarVencimientos(Date now) {
 		List<Contrato> contratoList = Contrato.list()
 		for (Contrato c : contratoList) {
@@ -50,13 +48,11 @@ class VencimientosService {
 		}
 	}
 	
-	@Transactional
 	def generarVencimientos(Long contratoId) {
 		Date now = new Date()
 		generarVencimientos(now,contratoId)
 	}
 	
-	@Transactional
 	def generarVencimientos(Date now, Long contratoId) {
 		Contrato c = Contrato.get(contratoId)
 		c.generarVencimientos(now)

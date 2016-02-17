@@ -2,6 +2,8 @@ package com.hvalenti.freelance.inmobiliariaDC
 
 class GrupoLiquidacionService {
 	
+	static transactional = true
+	
 	def vencimientosService
 	def liquidacionesService
 	
@@ -15,6 +17,7 @@ class GrupoLiquidacionService {
 		def liquidacionesGeneradas = liquidacionesService.generarLiquidacion(hasta)
 		if (!liquidacionesGeneradas.isEmpty()) {
 			grupoLiquidacion = new GrupoLiquidacion(fecha: new Date())
+			grupoLiquidacion.save(failOnError: true)
 			grupoLiquidacion.agregarLiquidaciones(liquidacionesGeneradas)
 		}
 		return grupoLiquidacion

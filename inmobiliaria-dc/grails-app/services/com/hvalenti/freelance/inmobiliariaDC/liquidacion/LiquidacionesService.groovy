@@ -6,6 +6,8 @@ import com.hvalenti.freelance.inmobiliariaDC.Responsable
 
 class LiquidacionesService {
 	
+	static transactional = true
+	
 	def existenVencimientosPendientesDeLiquidacion() {
 		Date now = new Date()
 		for (Contrato c : Contrato.list() ) {
