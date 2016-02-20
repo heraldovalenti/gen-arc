@@ -8,7 +8,7 @@ class GrupoLiquidacionController {
 	
 	def index() {
 		def ultimosGrupos = grupoLiquidacionService.ultimosGruposLiquidacion()
-		render(view: "/dashboard/gruposLiquidacion", model: [gruposLiquidacion: ultimosGrupos])
+		render(view: "/grupoLiquidacion/index", model: [gruposLiquidacion: ultimosGrupos])
 	}
 	
 	def generarGrupoLiquidacion() {
