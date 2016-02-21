@@ -21,5 +21,9 @@ class GrupoLiquidacionController {
 		}
 		redirect(action: "index")
 	}
+	
+	def show() {
+		render(view: "/grupoLiquidacion/show")
+	}
 
 }

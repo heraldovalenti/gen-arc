@@ -11,3 +11,9 @@
 *= require mobile
 *= require_self
 */
+
+@media print {
+	div.nav, #grailsLogo {
+		display: none;
+	}
+}
