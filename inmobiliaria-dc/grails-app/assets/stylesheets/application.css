@@ -16,4 +16,11 @@
 	div.nav, #grailsLogo {
 		display: none;
 	}
+	div.page-break {
+		page-break-after: always;
+	}
+}
+
+div.liquidacion {
+	margin-bottom: 50px;
 }

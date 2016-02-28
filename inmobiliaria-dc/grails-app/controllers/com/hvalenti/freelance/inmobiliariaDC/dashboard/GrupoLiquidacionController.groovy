@@ -1,5 +1,6 @@
 package com.hvalenti.freelance.inmobiliariaDC.dashboard
 
+import com.hvalenti.freelance.inmobiliariaDC.GrupoLiquidacion
 import com.hvalenti.freelance.inmobiliariaDC.util.DateUtil
 
 class GrupoLiquidacionController {
@@ -22,8 +23,9 @@ class GrupoLiquidacionController {
 		redirect(action: "index")
 	}
 	
-	def show() {
-		render(view: "/grupoLiquidacion/show")
+	def show(Long id) {
+		def grupoLiquidacion = GrupoLiquidacion.get(id)
+		render(view: "/grupoLiquidacion/show", model: [grupoLiquidacion: grupoLiquidacion])
 	}
 
 }
