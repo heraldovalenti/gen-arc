@@ -76,4 +76,8 @@ class ResponsableObligacion {
 		}
 		return ( this.responsable.equals(responsable) )
 	}
+	
+	public String toString() {
+		return responsable.toString()
+	}
 }
