@@ -17,7 +17,7 @@
 		
 		<g:each in="${ grupoLiquidacion.liquidaciones }" var="liquidacion" status="i" >
 		
-		<g:render template="liquidacion" model="['liquidacion': liquidacion]" />
+		<g:render template="/liquidacion/liquidacion" model="['liquidacionInstance': liquidacion]" />
 		<g:if test="${ i < ( grupoLiquidacion.liquidaciones.size() - 1 )}">
 		<div class="page-break" ></div>
 		</g:if>
