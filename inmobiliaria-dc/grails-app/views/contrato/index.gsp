@@ -38,9 +38,9 @@
 					
 						<td><g:link action="show" id="${contratoInstance.id}">${contratoInstance.id}</g:link></td>
 					
-						<td><g:formatDate date="${contratoInstance.inicio}" format="${ }"/></td>
+						<td><g:formatDate date="${contratoInstance.inicio}" formatName="default.date.format" /></td>
 					
-						<td><g:formatDate date="${contratoInstance.fin}" /></td>
+						<td><g:formatDate date="${contratoInstance.fin}" formatName="default.date.format" /></td>
 					
 						<td>${fieldValue(bean: contratoInstance, field: "inmueble")}</td>
 					

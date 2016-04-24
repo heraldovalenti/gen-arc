@@ -43,7 +43,7 @@
 								<td><g:checkBox name="check-${ instanciaObligacionInstance.id }" onclick="totalizar(this)"/></td>
 								<td><g:link controller="vencimiento" action="show"
 									id="${instanciaObligacionInstance.id}">${ instanciaObligacionInstance }</g:link></td>
-								<td><g:formatDate date="${instanciaObligacionInstance.vencimiento}" format="dd/MM/yyyy" /></td>
+								<td><g:formatDate date="${instanciaObligacionInstance.vencimiento}" formatName="default.date.format" /></td>
 								<td>$ 
 									<%--
 									<g:field type="number" name="monto-${ instanciaObligacionInstance.id }" step="0.01"

@@ -101,7 +101,7 @@
 			<g:each in="${liquidacionInstance.detalles}" status="i" var="instanciaDetalle">
 				<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					<td>${ instanciaDetalle.vencimiento.responsableObligacion.obligacion }</td>
-					<td><g:formatDate date="${instanciaDetalle.vencimiento.vencimiento}" format="dd/MM/yyyy" /></td>
+					<td><g:formatDate date="${instanciaDetalle.vencimiento.vencimiento}" formatName="default.date.format" /></td>
 					<td>$ ${ instanciaDetalle.monto }</td>
 					<td>${ instanciaDetalle.observacion }</td>
 				</tr>
