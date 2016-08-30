@@ -1,0 +1,18 @@
+postgres:
+  image: app1/postgres:1.0
+  ports:
+    - 5432:5432
+  environment:
+    POSTGRES_USER: simtlix
+    POSTGRES_PASSWORD: Simtlix01
+  volumes:
+    - ./volumes/postgresql:/var/lib/postgresql/data
+
+tomcat:
+  image: app1/tomcat:1.0
+  ports:
+    - 8080:8080
+  volumes:
+    - ./volumes/tomcat/webapps:/usr/local/tomcat/webapps
+  links:
+    - postgres

@@ -18,12 +18,7 @@ environments {
     }
     test { //a in-memory database
         dataSource {
-            dbCreate = "update"
-		    pooled = true
-		    jmxExport = true
-		    driverClassName = "org.h2.Driver"
-		    username = "sa"
-		    password = ""
+            jndiName = "java:/comp/env/jdbc/PostgreSQLDS"
         }
     }
     production { // PostgreSQL DB - equivalent to the one on OpenShift
